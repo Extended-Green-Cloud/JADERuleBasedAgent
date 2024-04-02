@@ -1,3 +1,9 @@
 
 # Project exclude paths
 /target/
+/.idea/*
+/.idea/**/*
+/.idea/.gitignore
+/APDescription.txt
+/MTPs-Main-Container.txt
+/jade-rule-based-agent.iml
