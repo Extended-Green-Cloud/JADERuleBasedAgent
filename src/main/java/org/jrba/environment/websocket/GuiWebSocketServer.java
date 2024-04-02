@@ -22,6 +22,10 @@ public class GuiWebSocketServer extends WebSocketServer {
 		super(new InetSocketAddress(8080));
 	}
 
+	public GuiWebSocketServer(final int port) {
+		super(new InetSocketAddress(port));
+	}
+
 	@Override
 	public void onOpen(final WebSocket conn, final ClientHandshake handshake) {
 		conn.send("Welcoming message!");

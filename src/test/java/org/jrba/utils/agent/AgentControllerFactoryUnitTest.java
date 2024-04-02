@@ -166,7 +166,7 @@ class AgentControllerFactoryUnitTest {
 	@DisplayName("Test shutdown termination.")
 	void testShutDownTermination() {
 		var testExecutor = newSingleThreadExecutor();
-		testExecutor.execute(() -> await().pollDelay(10, SECONDS).timeout(12, SECONDS)
+		testExecutor.execute(() -> await().pollDelay(5, SECONDS).timeout(6, SECONDS)
 				.untilAsserted(() -> assertTrue(true)));
 
 		assertFalse(testExecutor.isTerminated());

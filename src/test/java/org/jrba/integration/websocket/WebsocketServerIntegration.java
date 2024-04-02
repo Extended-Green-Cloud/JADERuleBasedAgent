@@ -14,6 +14,10 @@ public class WebsocketServerIntegration extends GuiWebSocketServer {
 	private ByteBuffer pingReceived;
 	private String messageReceived;
 
+	public WebsocketServerIntegration() {
+		super(9669);
+	}
+
 	@Override
 	public void onWebsocketPing(final WebSocket conn, final Framedata f) {
 		super.onWebsocketPing(conn, f);

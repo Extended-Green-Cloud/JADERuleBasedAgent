@@ -25,7 +25,7 @@ class GuiWebSocketIntegrationTest {
 		server = new WebsocketServerIntegration();
 		server.start();
 
-		testSocketClient = new WebsocketClientIntegration(URI.create("ws://localhost:8080/"));
+		testSocketClient = new WebsocketClientIntegration(URI.create("ws://localhost:9669/"));
 		testSocketClient.connectBlocking();
 	}
 
@@ -38,7 +38,7 @@ class GuiWebSocketIntegrationTest {
 	@Test
 	@DisplayName("Test WebSocket server and client initialization.")
 	void testWebsocketInitialization() {
-		assertEquals(8080, server.getPort());
+		assertEquals(9669, server.getPort());
 		assertEquals("0.0.0.0", server.getAddress().getHostName());
 		assertTrue(testSocketClient.isOpen());
 	}
