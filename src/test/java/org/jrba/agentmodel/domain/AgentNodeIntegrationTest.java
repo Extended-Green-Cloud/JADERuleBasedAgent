@@ -22,6 +22,8 @@ class AgentNodeIntegrationTest {
 		assertEquals("Test custom agent", agentNode.getAgentType());
 		assertNotNull(agentNode.getMainWebSocket());
 		assertEquals(0, agentNode.getEventsQueue().size());
+
+		agentNode.getMainWebSocket().closeBlocking();
 	}
 
 }
