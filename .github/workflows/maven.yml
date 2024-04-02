@@ -17,6 +17,8 @@ jobs:
         java-version: '21'
         distribution: 'temurin'
         cache: maven
+    - name: Initialize jade.jar
+      run: mvn initialize
     - name: Build with Maven
       run: mvn -B package --file pom.xml
     - name: Update dependency graph
