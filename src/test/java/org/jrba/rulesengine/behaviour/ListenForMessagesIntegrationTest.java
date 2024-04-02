@@ -5,7 +5,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.awaitility.Awaitility.await;
 import static org.jrba.rulesengine.constants.RuleSetTypeConstants.DEFAULT_RULE_SET;
 import static org.jrba.rulesengine.rest.RuleSetRestApi.getAvailableRuleSets;
-import static org.jrba.utils.yellowpages.YellowPagesRegister.deregister;
 
 import java.util.concurrent.TimeUnit;
 
@@ -18,7 +17,6 @@ import org.jrba.rulesengine.behaviour.fixtures.listener.TestListenerAgent;
 import org.jrba.rulesengine.behaviour.fixtures.listener.TestListenerAgentNode;
 import org.jrba.rulesengine.behaviour.fixtures.listener.TestListenerAgentProps;
 import org.jrba.utils.messages.MessageBuilder;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -39,11 +37,6 @@ public class ListenForMessagesIntegrationTest {
 		getAvailableRuleSets().put(DEFAULT_RULE_SET, new TestRuleSet());
 	}
 
-	@AfterEach
-	void clear() {
-		deregister(testServiceAgent, testServiceAgent.getDefaultDF(), "TEST_SERVICE", "TEST_SERVICE_NAME");
-	}
-
 	@Test
 	@DisplayName("Test listen for messages when messages received.")
 	void testListenForMessagesWhenReceived() throws InterruptedException {
@@ -55,7 +48,8 @@ public class ListenForMessagesIntegrationTest {
 				.withReceivers(testListenerAgent.getAID()).build());
 
 		await().timeout(5, TimeUnit.SECONDS)
-				.until(() -> testListenerAgent.getProperties().getLastExecutedBehaviour().equals("HANDLE_RECEIVED_MESSAGES"));
+				.until(() -> testListenerAgent.getProperties().getLastExecutedBehaviour()
+						.equals("HANDLE_RECEIVED_MESSAGES"));
 		assertThat(testListenerAgent.getProperties().getMessages()).hasSize(1);
 	}
 

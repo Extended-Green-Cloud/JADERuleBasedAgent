@@ -4,8 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.awaitility.Awaitility.await;
 import static org.jrba.rulesengine.constants.RuleSetTypeConstants.DEFAULT_RULE_SET;
 import static org.jrba.rulesengine.rest.RuleSetRestApi.getAvailableRuleSets;
-import static org.jrba.utils.yellowpages.YellowPagesRegister.deregister;
-import static org.jrba.utils.yellowpages.YellowPagesRegister.search;
+import static org.jrba.utils.yellowpages.YellowPagesRegister.register;
 
 import java.util.concurrent.TimeUnit;
 
@@ -17,14 +16,17 @@ import org.jrba.rulesengine.behaviour.fixtures.TestServiceAgent;
 import org.jrba.rulesengine.behaviour.fixtures.search.TestSearchAgent;
 import org.jrba.rulesengine.behaviour.fixtures.search.TestSearchAgentNode;
 import org.jrba.rulesengine.behaviour.fixtures.search.TestSearchAgentProps;
-import org.jrba.utils.yellowpages.YellowPagesRegister;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @ExtendWith(JADESystemContext.class)
 public class SearchForAgentIntegrationTest {
+
+	private static final Logger logger = LoggerFactory.getLogger(SearchForAgentIntegrationTest.class);
 
 	@AgentContext(agentClass = "org.jrba.rulesengine.behaviour.fixtures.TestServiceAgent", agentName = "TestServiceAgent")
 	public TestServiceAgent testServiceAgent;
@@ -41,10 +43,6 @@ public class SearchForAgentIntegrationTest {
 	@Test
 	@DisplayName("Test search for agent when agent not present.")
 	void testSearchAgentServiceWhenNotPresent() throws InterruptedException {
-		await().timeout(10, TimeUnit.SECONDS)
-				.until(() -> !search(testServiceAgent, testServiceAgent.getDefaultDF(), "TEST_SERVICE").isEmpty());
-		deregister(testServiceAgent, testServiceAgent.getDefaultDF(), "TEST_SERVICE", "TEST_SERVICE_NAME");
-
 		final RulesController<TestSearchAgentProps, TestSearchAgentNode> testController = new RulesController<>();
 		testSearchAgent.putO2AObject(testController, true);
 
@@ -55,6 +53,9 @@ public class SearchForAgentIntegrationTest {
 	@Test
 	@DisplayName("Test search for agent when agent is found.")
 	void testSearchAgentServiceWhenFound() throws InterruptedException {
+		register(testServiceAgent, testServiceAgent.getDefaultDF(), "TEST_SERVICE", "TEST_SERVICE_NAME");
+		logger.info("Agent registered in DF.");
+
 		final RulesController<TestSearchAgentProps, TestSearchAgentNode> testController = new RulesController<>();
 		testSearchAgent.putO2AObject(testController, true);
 
