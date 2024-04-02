@@ -1,0 +1,45 @@
+{
+  "name": "TEST_RULE_SET",
+  "rules": [
+    {
+      "agentType": "BASIC",
+      "type": "DEFAULT_RULE_TYPE",
+      "subType": "DEFAULT_RULE_SUB_TYPE",
+      "stepType": "REQUEST_CREATE_STEP",
+      "priority": 1,
+      "name": "DEFAULT_NAME",
+      "description": "Example description.",
+      "agentRuleType": "BASIC",
+      "initialParams": {
+        "exampleMap": "MAP"
+      },
+      "imports": [
+        "import org.jrba.rulesengine.rest.domain.RuleRest;"
+      ],
+      "evaluate": "true",
+      "execute": "System.out.println(\":)\");"
+
+    },
+    {
+      "agentType": "BASIC",
+      "type": "DEFAULT_RULE_TYPE",
+      "subType": "DEFAULT_RULE_SUB_TYPE",
+      "stepType": "REQUEST_CREATE_STEP",
+      "priority": 1,
+      "name": "DEFAULT_NAME",
+      "description": "Example description.",
+      "agentRuleType": "SUBSCRIPTION",
+      "initialParams": {
+        "exampleMap": "MAP"
+      },
+      "imports": [
+        "import org.jrba.rulesengine.rest.domain.RuleRest;",
+        "import org.jrba.utils.messages.MessageBuilder;",
+        "import jade.lang.acl.ACLMessage;"
+      ],
+      "createSubscriptionMessage": "return MessageBuilder.builder(0, ACLMessage.CFP).withStringContent(\"123\").build();",
+      "handleRemovedAgents": "System.out.println(\"2\");",
+      "handleAddedAgents": "System.out.println(\"3\");"
+    }
+  ]
+}
