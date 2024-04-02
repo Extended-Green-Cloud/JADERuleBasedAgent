@@ -1,8 +1,9 @@
 package org.jrba.agentmodel.domain;
 
+import static java.util.concurrent.TimeUnit.SECONDS;
+import static org.awaitility.Awaitility.await;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.jrba.fixtures.TestAgentNodeCustom;
 import org.jrba.integration.websocket.WebsocketContext;
@@ -22,8 +23,9 @@ class AgentNodeIntegrationTest {
 		assertEquals("Test custom name", agentNode.getAgentName());
 		assertEquals("Test custom agent", agentNode.getAgentType());
 		assertNotNull(agentNode.getMainWebSocket());
-		assertTrue(agentNode.getMainWebSocket().isOpen());
 		assertEquals(0, agentNode.getEventsQueue().size());
+
+		await().timeout(5, SECONDS).until(() -> agentNode.getMainWebSocket().isOpen());
 	}
 
 }
