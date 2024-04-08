@@ -5,8 +5,11 @@ package org.jrba.exception;
  */
 public class IncorrectMessageContentException extends RuntimeException {
 
-	public static final String INCORRECT_MESSAGE_FORMAT = "The provided message content has incorrect format";
+	private static final String INCORRECT_MESSAGE_FORMAT = "The provided message content has incorrect format";
 
+	/**
+	 * Default constructor.
+	 */
 	public IncorrectMessageContentException() {
 		super(INCORRECT_MESSAGE_FORMAT);
 	}

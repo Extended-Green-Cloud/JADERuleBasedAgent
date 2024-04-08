@@ -29,7 +29,10 @@ import org.mvel2.MVEL;
 import lombok.Getter;
 
 /**
- * Abstract class defining structure of a rule which is executed once at the time specified by the user
+ * Abstract class defining structure of a rule which is executed once at the time specified by the user.
+ *
+ * @param <E> type of node connected to the Agent
+ * @param <T> type of properties of Agent
  */
 @Getter
 public class AgentScheduledRule<T extends AgentProps, E extends AgentNode<T>> extends AgentBasicRule<T, E> {
@@ -81,6 +84,9 @@ public class AgentScheduledRule<T extends AgentProps, E extends AgentNode<T>> ex
 		initializeSteps();
 	}
 
+	/**
+	 * Method assigns a list of scheduler rule steps.
+	 */
 	public void initializeSteps() {
 		stepRules = new ArrayList<>(List.of(new SpecifyExecutionTimeRule(), new HandleActionTriggerRule()));
 	}
@@ -102,21 +108,29 @@ public class AgentScheduledRule<T extends AgentProps, E extends AgentNode<T>> ex
 	}
 
 	/**
-	 * Method specify time at which behaviour is to be executed
+	 * Method specify time at which behaviour is to be executed.
+	 *
+	 * @param facts facts with additional parameters
+	 * @return Date specifying when the rule will be triggered
 	 */
 	protected Date specifyTime(final RuleSetFacts facts) {
 		return Date.from(Instant.now());
 	}
 
 	/**
-	 * Method evaluates if the action should have effects
+	 * Method evaluates if the action should have effects.
+	 *
+	 * @param facts facts with additional parameters
+	 * @return boolean indicating if the rule's action should be executed
 	 */
 	protected boolean evaluateBeforeTrigger(final RuleSetFacts facts) {
 		return true;
 	}
 
 	/**
-	 * Method executed when specific time of behaviour execution is reached
+	 * Method executed when specific time of behaviour execution is reached.
+	 *
+	 * @param facts facts with additional parameters
 	 */
 	protected void handleActionTrigger(final RuleSetFacts facts) {
 		// TO BE OVERRIDDEN BY USER

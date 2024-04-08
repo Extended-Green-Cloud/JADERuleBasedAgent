@@ -33,6 +33,13 @@ import org.jrba.rulesengine.ruleset.RuleSet;
  */
 public class MVELRuleMapper {
 
+	/**
+	 * Method maps the REST rule type to the AgentRule.
+	 *
+	 * @param ruleRest rest rule representation
+	 * @param ruleSet  rule set
+	 * @return constructed AgentRule
+	 */
 	public static AgentRule getRuleForType(final RuleRest ruleRest, final RuleSet ruleSet) {
 		return switch (ruleRest.getAgentRuleType()) {
 			case "SCHEDULED" -> new AgentScheduledRule<>((ScheduledRuleRest) ruleRest);

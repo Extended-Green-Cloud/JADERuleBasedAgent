@@ -15,8 +15,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 /**
- * Abstract class extended by classes representing properties of individual agent types
- * @implNote In the future: rawtypes will be handled with more care
+ * Abstract class extended by classes representing properties of individual agent types.
+ * (Note: raw and unchecked types are to be handled with more care in the future releases.)
  */
 @Getter
 @Setter
@@ -44,6 +44,7 @@ public class AgentProps {
 	/**
 	 * Default constructor that sets the type of the agent
 	 *
+	 * @param agentType type of the agent
 	 * @param agentName name of the agent
 	 */
 	public AgentProps(final AgentType agentType, final String agentName) {
@@ -56,6 +57,7 @@ public class AgentProps {
 	/**
 	 * Default constructor that sets the type of the agent
 	 *
+	 * @param agentType name of the agent type
 	 * @param agentName name of the agent
 	 */
 	public AgentProps(final String agentType, final String agentName) {
@@ -66,7 +68,7 @@ public class AgentProps {
 	}
 
 	/**
-	 * Method used in updating interface associated with given agent (to be overridden)
+	 * Method used in updating interface associated with given agent (to be overridden).
 	 */
 	public void updateGUI() {
 		if (nonNull(agentNode)) {
@@ -75,7 +77,7 @@ public class AgentProps {
 	}
 
 	/**
-	 * Method used to store monitoring data
+	 * Method used to store monitoring data.
 	 */
 	public void saveMonitoringData() {
 		if (nonNull(agentNode)) {

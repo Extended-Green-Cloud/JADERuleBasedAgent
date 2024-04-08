@@ -20,13 +20,17 @@ public class GuiWebSocketClient extends WebSocketClient {
 	private static final Logger logger = LoggerFactory.getLogger(GuiWebSocketClient.class);
 
 	/**
-	 * @implNote
-	 * Method used only for the purpose of testing
+	 * Method used only for the purpose of testing.
 	 */
 	public GuiWebSocketClient() {
 		super(URI.create(""));
 	}
 
+	/**
+	 * Default constructor.
+	 *
+	 * @param serverUri address of the Websocket
+	 */
 	public GuiWebSocketClient(final URI serverUri) {
 		super(serverUri);
 	}

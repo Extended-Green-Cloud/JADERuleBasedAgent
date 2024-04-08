@@ -37,7 +37,10 @@ import jade.lang.acl.ACLMessage;
 import lombok.Getter;
 
 /**
- * Abstract class defining structure of a rule which handles default Subscription behaviour
+ * Abstract class defining structure of a rule which handles default Subscription behaviour.
+ *
+ * @param <E> type of node connected to the Agent
+ * @param <T> type of properties of Agent
  */
 @Getter
 public class AgentSubscriptionRule<T extends AgentProps, E extends AgentNode<T>> extends AgentBasicRule<T, E> {
@@ -90,6 +93,9 @@ public class AgentSubscriptionRule<T extends AgentProps, E extends AgentNode<T>>
 		initializeSteps();
 	}
 
+	/**
+	 * Method assigns a list of subscription steps.
+	 */
 	public void initializeSteps() {
 		stepRules = new ArrayList<>(List.of(new CreateSubscriptionRule(), new HandleDFInformMessage()));
 	}
@@ -111,21 +117,28 @@ public class AgentSubscriptionRule<T extends AgentProps, E extends AgentNode<T>>
 	}
 
 	/**
-	 * Method executed when subscription message is to be created
+	 * Method executed when subscription message is to be created.
+	 *
+	 * @param facts facts with additional parameters
+	 * @return initialized subscription message
 	 */
 	protected ACLMessage createSubscriptionMessage(final RuleSetFacts facts) {
 		return MessageBuilder.builder(facts.get(RULE_SET_IDX).toString(), SUBSCRIBE).build();
 	}
 
 	/**
-	 * Method handles removing agents which deregistered their service
+	 * Method handles removing agents which deregistered their service.
+	 *
+	 * @param removedAgents map of agents, which removed their services from DF
 	 */
 	protected void handleRemovedAgents(final Map<AID, Boolean> removedAgents) {
 		// TO BE OVERRIDDEN BY USER
 	}
 
 	/**
-	 * Method handles adding new agents which registered their service
+	 * Method handles adding new agents which registered their service.
+	 *
+	 * @param addedAgents map of agents, which added their services to DF
 	 */
 	protected void handleAddedAgents(final Map<AID, Boolean> addedAgents) {
 		// TO BE OVERRIDDEN BY USER

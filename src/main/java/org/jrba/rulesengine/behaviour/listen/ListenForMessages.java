@@ -2,7 +2,6 @@ package org.jrba.rulesengine.behaviour.listen;
 
 import static java.lang.Integer.parseInt;
 import static java.util.Objects.nonNull;
-import static org.jrba.utils.mapper.FactsMapper.mapToRuleSetFacts;
 import static org.jrba.rulesengine.constants.FactTypeConstants.MESSAGE;
 import static org.jrba.rulesengine.constants.FactTypeConstants.MESSAGES;
 import static org.jrba.rulesengine.constants.FactTypeConstants.RULE_SET_IDX;
@@ -10,6 +9,7 @@ import static org.jrba.rulesengine.constants.FactTypeConstants.RULE_STEP;
 import static org.jrba.rulesengine.constants.FactTypeConstants.RULE_TYPE;
 import static org.jrba.rulesengine.enums.rulesteptype.RuleStepTypeEnum.MESSAGE_READER_READ_CONTENT_STEP;
 import static org.jrba.rulesengine.enums.rulesteptype.RuleStepTypeEnum.MESSAGE_READER_READ_STEP;
+import static org.jrba.utils.mapper.FactsMapper.mapToRuleSetFacts;
 
 import java.util.List;
 import java.util.Objects;
@@ -30,29 +30,14 @@ public class ListenForMessages extends CyclicBehaviour {
 	protected RulesController<?, ?> controller;
 	protected boolean omitRuleSetFromMessage;
 
-	/**
-	 * Constructor
-	 *
-	 * @param agent      agent executing the behaviour
-	 * @param ruleType   type of the rule that handles message retrieval execution
-	 * @param controller rules controller
-	 */
-	protected ListenForMessages(final Agent agent, final String ruleType, final RulesController<?, ?> controller) {
+	private ListenForMessages(final Agent agent, final String ruleType, final RulesController<?, ?> controller) {
 		super(agent);
 		this.ruleType = ruleType;
 		this.controller = controller;
 		this.omitRuleSetFromMessage = false;
 	}
 
-	/**
-	 * Constructor
-	 *
-	 * @param agent                  agent executing the behaviour
-	 * @param ruleType               type of the rule that handles message retrieval execution
-	 * @param controller             rules controller
-	 * @param omitRuleSetFromMessage flag which ignores the rule set passed in the message content
-	 */
-	protected ListenForMessages(final Agent agent, final String ruleType, final RulesController<?, ?> controller,
+	private ListenForMessages(final Agent agent, final String ruleType, final RulesController<?, ?> controller,
 			final boolean omitRuleSetFromMessage) {
 		this(agent, ruleType, controller);
 		this.omitRuleSetFromMessage = omitRuleSetFromMessage;
@@ -64,6 +49,7 @@ public class ListenForMessages extends CyclicBehaviour {
 	 * @param agent      agent executing the behaviour
 	 * @param ruleType   type of the rule that handles message retrieval execution
 	 * @param controller rules controller
+	 * @return ListenForMessages
 	 */
 	public static ListenForMessages create(final Agent agent, final String ruleType,
 			final RulesController<?, ?> controller) {
@@ -77,6 +63,7 @@ public class ListenForMessages extends CyclicBehaviour {
 	 * @param ruleType               type of the rule that handles message retrieval execution
 	 * @param controller             rules controller
 	 * @param omitRuleSetFromMessage flag which ignores the rule set passed in the message content
+	 * @return ListenForMessages
 	 */
 	public static ListenForMessages create(final Agent agent, final String ruleType,
 			final RulesController<?, ?> controller, final boolean omitRuleSetFromMessage) {
@@ -113,7 +100,9 @@ public class ListenForMessages extends CyclicBehaviour {
 	}
 
 	/**
-	 * Method can be optionally overridden in order to perform facts-based actions at the end of message processing
+	 * Method can be optionally overridden in order to perform facts-based actions at the end of message processing.
+	 *
+	 * @param facts facts with additional parameters
 	 */
 	protected void postProcessMessage(final RuleSetFacts facts) {
 		// to be overridden if necessary

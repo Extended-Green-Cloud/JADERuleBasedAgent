@@ -8,7 +8,7 @@ import org.jrba.rulesengine.RulesController;
 import org.slf4j.Logger;
 
 /**
- * Class defines set of utilities used to connect agents with object instances
+ * Class defines set of utilities used to connect agents with object instances.
  */
 @SuppressWarnings({ "unchecked", "rawtypes" })
 public abstract class AgentConnector {

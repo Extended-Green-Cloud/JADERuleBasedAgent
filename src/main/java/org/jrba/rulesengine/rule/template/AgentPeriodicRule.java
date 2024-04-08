@@ -28,7 +28,10 @@ import org.mvel2.MVEL;
 import lombok.Getter;
 
 /**
- * Abstract class defining structure of a rule which handles default periodic behaviour
+ * Abstract class defining structure of a rule which handles default periodic behaviour.
+ *
+ * @param <E> type of node connected to the Agent
+ * @param <T> type of properties of Agent
  */
 @Getter
 public class AgentPeriodicRule<T extends AgentProps, E extends AgentNode<T>> extends AgentBasicRule<T, E> {
@@ -81,7 +84,10 @@ public class AgentPeriodicRule<T extends AgentProps, E extends AgentNode<T>> ext
 	}
 
 	/**
-	 * Method evaluates if the action should have effects
+	 * Method evaluates if the action should have effects.
+	 *
+	 * @param facts facts with additional parameters
+	 * @return boolean indicating if the rule's action should be triggered
 	 */
 	protected boolean evaluateBeforeTrigger(final RuleSetFacts facts) {
 		return true;
@@ -92,6 +98,9 @@ public class AgentPeriodicRule<T extends AgentProps, E extends AgentNode<T>> ext
 		return PERIODIC.getType();
 	}
 
+	/**
+	 * Method assigns a list of periodic rule steps.
+	 */
 	public void initializeSteps() {
 		stepRules = new ArrayList<>(List.of(new SpecifyPeriodRule(), new HandleActionTriggerRule()));
 	}
@@ -108,14 +117,18 @@ public class AgentPeriodicRule<T extends AgentProps, E extends AgentNode<T>> ext
 	}
 
 	/**
-	 * Method specify period after which behaviour is to be executed (in milliseconds)
+	 * Method specify period after which behaviour is to be executed (in milliseconds).
+	 *
+	 * @return number of milliseconds after which the rule evaluation is to be triggered.
 	 */
 	protected long specifyPeriod() {
 		return 0;
 	}
 
 	/**
-	 * Method executed when time after which action is to be triggerred has passed
+	 * Method executed when time after which action is to be triggerred has passed.
+	 *
+	 * @param facts facts with additional parameters
 	 */
 	protected void handleActionTrigger(final RuleSetFacts facts) {
 		// TO BE OVERRIDDEN BY USER

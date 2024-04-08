@@ -1,21 +1,21 @@
 package org.jrba.rulesengine.behaviour.schedule;
 
 import static java.util.Objects.isNull;
-import static org.jrba.utils.mapper.FactsMapper.mapToRuleSetFacts;
 import static org.jrba.rulesengine.constants.FactTypeConstants.RULE_SET_IDX;
 import static org.jrba.rulesengine.constants.FactTypeConstants.RULE_STEP;
 import static org.jrba.rulesengine.constants.FactTypeConstants.RULE_TYPE;
 import static org.jrba.rulesengine.constants.FactTypeConstants.TRIGGER_TIME;
 import static org.jrba.rulesengine.enums.rulesteptype.RuleStepTypeEnum.SCHEDULED_EXECUTE_ACTION_STEP;
 import static org.jrba.rulesengine.enums.rulesteptype.RuleStepTypeEnum.SCHEDULED_SELECT_TIME_STEP;
+import static org.jrba.utils.mapper.FactsMapper.mapToRuleSetFacts;
 import static org.jrba.utils.rules.RuleSetSelector.selectRuleSetIndex;
 
 import java.util.function.ToIntFunction;
 
+import org.jeasy.rules.api.Facts;
 import org.jrba.rulesengine.RulesController;
 import org.jrba.rulesengine.ruleset.RuleSetFacts;
 import org.jrba.utils.rules.RuleSetSelector;
-import org.jeasy.rules.api.Facts;
 
 import jade.core.Agent;
 import jade.core.behaviours.WakerBehaviour;
@@ -29,13 +29,7 @@ public class ScheduleOnce extends WakerBehaviour {
 	final RuleSetFacts facts;
 	protected RulesController<?, ?> controller;
 
-	/**
-	 * Constructor
-	 *
-	 * @param agent agent executing the behaviour
-	 * @param facts facts under which CFP is to be sent
-	 */
-	protected ScheduleOnce(final Agent agent, final RuleSetFacts facts, final RulesController<?, ?> controller,
+	private ScheduleOnce(final Agent agent, final RuleSetFacts facts, final RulesController<?, ?> controller,
 			final ToIntFunction<Facts> selectRuleSet) {
 		super(agent, facts.get(TRIGGER_TIME));
 		this.facts = facts;

@@ -13,10 +13,12 @@ import lombok.NoArgsConstructor;
 
 /**
  * Class represents generic agent node used to connect agent with external environment
+ *
+ * @param <E> type of properties used by the Agent
  */
 @Getter
 @NoArgsConstructor
-public abstract class AgentNode<E extends AgentProps>  {
+public abstract class AgentNode<E extends AgentProps> {
 
 	protected final Queue<ExternalEvent> eventsQueue = new ConcurrentLinkedQueue<>();
 	protected GuiWebSocketClient mainWebSocket;
@@ -36,18 +38,25 @@ public abstract class AgentNode<E extends AgentProps>  {
 
 	/**
 	 * Method updates interface of given agent node
+	 *
+	 * @param props properties of the Agent
 	 */
 	public abstract void updateGUI(final E props);
 
 	/**
 	 * Method saves monitoring data of given agent node.
 	 * This method can optionally be applied to agents in order to incorporate the database.
+	 *
+	 * @param props properties of the Agent
 	 */
 	public abstract void saveMonitoringData(final E props);
 
 	/**
 	 * Method that can be used to initialize node communication socket.
 	 * By itself, it does nothing. However, it can be extended to provide system-specific implementation.
+	 *
+	 * @param url url of the WebSocket to which the AgentNode is to be connected
+	 * @return connected GuiWebSocketClient
 	 */
 	public abstract GuiWebSocketClient initializeSocket(final String url);
 
@@ -61,7 +70,10 @@ public abstract class AgentNode<E extends AgentProps>  {
 	}
 
 	/**
-	 * Method that can be used to connect socket base on given url
+	 * Method that can be used to connect socket base on given url.
+	 *
+	 * @param url url of the WebSocket to which the AgentNode is to be connected
+	 * @throws InterruptedException when connection to the Websocket is interrupted
 	 */
 	public void connectSocket(final String url) throws InterruptedException {
 		mainWebSocket = initializeSocket(url);

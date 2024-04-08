@@ -2,7 +2,6 @@ package org.jrba.rulesengine.behaviour.initiate;
 
 import static java.util.Objects.isNull;
 import static java.util.stream.Collectors.toMap;
-import static org.jrba.utils.mapper.FactsMapper.mapToRuleSetFacts;
 import static org.jrba.rulesengine.constants.FactTypeConstants.RULE_SET_IDX;
 import static org.jrba.rulesengine.constants.FactTypeConstants.RULE_STEP;
 import static org.jrba.rulesengine.constants.FactTypeConstants.RULE_TYPE;
@@ -11,14 +10,15 @@ import static org.jrba.rulesengine.constants.FactTypeConstants.SUBSCRIPTION_CREA
 import static org.jrba.rulesengine.constants.FactTypeConstants.SUBSCRIPTION_REMOVED_AGENTS;
 import static org.jrba.rulesengine.enums.rulesteptype.RuleStepTypeEnum.SUBSCRIPTION_CREATE_STEP;
 import static org.jrba.rulesengine.enums.rulesteptype.RuleStepTypeEnum.SUBSCRIPTION_HANDLE_AGENTS_RESPONSE_STEP;
+import static org.jrba.utils.mapper.FactsMapper.mapToRuleSetFacts;
 import static org.jrba.utils.yellowpages.YellowPagesRegister.decodeSubscription;
 
 import java.util.Map;
 import java.util.function.ToIntFunction;
 
+import org.jeasy.rules.api.Facts;
 import org.jrba.rulesengine.RulesController;
 import org.jrba.rulesengine.ruleset.RuleSetFacts;
-import org.jeasy.rules.api.Facts;
 
 import jade.core.AID;
 import jade.core.Agent;
@@ -31,10 +31,14 @@ import jade.proto.SubscriptionInitiator;
 public class InitiateSubscription extends SubscriptionInitiator {
 
 	protected final ToIntFunction<Facts> selectRuleSet;
-	final RuleSetFacts facts;
+	protected final RuleSetFacts facts;
+
+	/**
+	 * Controller responsible for rules triggering.
+	 */
 	protected RulesController<?, ?> controller;
 
-	protected InitiateSubscription(final Agent agent, final RuleSetFacts facts,
+	private InitiateSubscription(final Agent agent, final RuleSetFacts facts,
 			final RulesController<?, ?> controller, final ToIntFunction<Facts> selectRuleSet) {
 		super(agent, facts.get(SUBSCRIPTION_CREATE_MESSAGE));
 		this.facts = facts;
@@ -118,7 +122,9 @@ public class InitiateSubscription extends SubscriptionInitiator {
 
 	/**
 	 * Method can be optionally overridden in order to perform facts-based actions after handling subscription response
-	 * message
+	 * message.
+	 *
+	 * @param facts facts with additional parameters
 	 */
 	protected void postProcessSubscriptionResponse(final RuleSetFacts facts) {
 		// to be overridden if necessary

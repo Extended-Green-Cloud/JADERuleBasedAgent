@@ -36,7 +36,10 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
 /**
- * Abstract class defining structure of a rule, executed within an agent's behaviour
+ * Abstract class defining structure of a rule, executed within an agent's behaviour.
+ *
+ * @param <E> type of node connected to the Agent
+ * @param <T> type of properties of Agent
  */
 @Getter
 @EqualsAndHashCode(callSuper = true)
@@ -45,7 +48,6 @@ public class AgentBasicRule<T extends AgentProps, E extends AgentNode<T>> extend
 		implements AgentRule, Serializable {
 
 	static final Logger logger = getLogger(AgentBasicRule.class);
-
 	protected RulesController<T, E> controller;
 	protected T agentProps;
 	protected E agentNode;
@@ -56,9 +58,7 @@ public class AgentBasicRule<T extends AgentProps, E extends AgentNode<T>> extend
 	protected String stepType;
 	protected boolean isRuleStep;
 	protected List<AgentRule> stepRules;
-
 	protected Map<String, Object> initialParameters;
-
 	protected String imports;
 	protected Serializable executeExpression;
 	protected Serializable evaluateExpression;

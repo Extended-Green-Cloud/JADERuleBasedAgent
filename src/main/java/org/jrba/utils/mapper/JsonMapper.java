@@ -16,6 +16,9 @@ public final class JsonMapper {
 	private JsonMapper() {
 	}
 
+	/**
+	 * @return ObjectMapper
+	 */
 	public static ObjectMapper getMapper() {
 		return MAPPER;
 	}

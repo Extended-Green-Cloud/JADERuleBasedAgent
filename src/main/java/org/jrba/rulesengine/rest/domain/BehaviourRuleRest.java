@@ -8,6 +8,9 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;
 import lombok.Setter;
 
+/**
+ * REST representation of AgentBehaviourRule.
+ */
 @Getter
 @Setter
 @JsonInclude(JsonInclude.Include.NON_NULL)

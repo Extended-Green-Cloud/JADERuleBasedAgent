@@ -28,7 +28,6 @@ import org.jeasy.rules.api.Facts;
 import org.jrba.agentmodel.domain.node.AgentNode;
 import org.jrba.agentmodel.domain.props.AgentProps;
 import org.jrba.rulesengine.RulesController;
-import org.jrba.rulesengine.enums.ruletype.AgentRuleType;
 import org.jrba.rulesengine.rest.domain.MessageListenerRuleRest;
 import org.jrba.rulesengine.rule.AgentBasicRule;
 import org.jrba.rulesengine.rule.AgentRule;
@@ -43,7 +42,10 @@ import jade.lang.acl.MessageTemplate;
 import lombok.Getter;
 
 /**
- * Abstract class defining structure of a rule which handles default message retrieval behaviour
+ * Abstract class defining structure of a rule which handles default message retrieval behaviour.
+ *
+ * @param <E> type of node connected to the Agent
+ * @param <T> type of properties of Agent
  */
 @Getter
 public class AgentMessageListenerRule<T extends AgentProps, E extends AgentNode<T>> extends AgentBasicRule<T, E> {
@@ -145,6 +147,9 @@ public class AgentMessageListenerRule<T extends AgentProps, E extends AgentNode<
 		return LISTENER.getType();
 	}
 
+	/**
+	 * Method assigns a list of message listener steps.
+	 */
 	public void initializeSteps() {
 		stepRules = new ArrayList<>(
 				List.of(new ReadMessagesRule(), new ReadMessagesContentRule(), new HandleMessageRule()));
@@ -162,7 +167,10 @@ public class AgentMessageListenerRule<T extends AgentProps, E extends AgentNode<
 	}
 
 	/**
-	 * Method can be optionally overwritten in order to change rule set based on facts after reading message content
+	 * Method can be optionally overwritten in order to change rule set based on facts after reading message content.
+	 *
+	 * @param facts facts from which the rule set index is to be selected
+	 * @return number indicating rule set index
 	 */
 	protected int selectRuleSetIdx(final RuleSetFacts facts) {
 		return facts.get(RULE_SET_IDX);

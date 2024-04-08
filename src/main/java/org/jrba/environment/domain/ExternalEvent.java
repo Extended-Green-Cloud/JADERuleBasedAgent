@@ -26,6 +26,7 @@ public abstract class ExternalEvent implements Serializable {
 	 * Method responsible for triggering a given event
 	 *
 	 * @param agentNodes all nodes present in the system
+	 * @param <T> type of the AgentNode
 	 */
 	public abstract <T extends AgentNode> void trigger(final Map<String, T> agentNodes);
 }

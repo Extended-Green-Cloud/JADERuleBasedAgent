@@ -5,6 +5,12 @@ package org.jrba.exception;
  */
 public class JadeControllerException extends RuntimeException {
 
+	/**
+	 * Default constructor.
+	 *
+	 * @param message   error message that is to be displayed
+	 * @param exception parent exception
+	 */
 	public JadeControllerException(String message, Exception exception) {
 		super(message, exception);
 	}
