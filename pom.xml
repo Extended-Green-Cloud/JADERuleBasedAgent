@@ -15,14 +15,6 @@
 	<description>Library extending the JADE agent platform with rule-driven agents' behaviours.</description>
 	<url>https://github.com/Extended-Green-Cloud</url>
 
-	<!-- Local repository -->
-	<repositories>
-		<repository>
-			<id>jrba-local-repo</id>
-			<url>file://${pom.basedir}/lib</url>
-		</repository>
-	</repositories>
-
 	<!-- Package license -->
 	<licenses>
 		<license>
@@ -62,8 +54,6 @@
 			<artifactId>jade</artifactId>
 			<type>jar</type>
 			<version>4.6</version>
-			<scope>system</scope>
-			<systemPath>${pom.basedir}/lib/jade.jar</systemPath>
 		</dependency>
 		<!-- JEasy rules -->
 		<dependency>
@@ -280,6 +270,53 @@
 							<sources>
 								<source>${project.build.directory}/generated-sources/annotations</source>
 							</sources>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<!-- Plugin for installing custom JADE dependency -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-install-plugin</artifactId>
+				<version>2.5.2</version>
+				<executions>
+					<execution>
+						<phase>initialize</phase>
+						<goals>
+							<goal>install-file</goal>
+						</goals>
+						<configuration>
+							<file>${project.basedir}/lib/jade.jar</file>
+							<groupId>com.tilab.jade</groupId>
+							<artifactId>jade</artifactId>
+							<version>4.6</version>
+							<packaging>jar</packaging>
+							<generatePom>true</generatePom>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<!-- Plugin to build dependencies -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-shade-plugin</artifactId>
+				<version>3.5.1</version>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>shade</goal>
+						</goals>
+						<configuration>
+							<createDependencyReducedPom>false</createDependencyReducedPom>
+							<filters>
+								<filter>
+									<artifact>*:*</artifact>
+									<excludes>
+										<exclude>**/Log4j2Plugins.dat</exclude>
+									</excludes>
+								</filter>
+							</filters>
 						</configuration>
 					</execution>
 				</executions>

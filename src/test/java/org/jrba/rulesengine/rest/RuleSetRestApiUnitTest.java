@@ -47,7 +47,7 @@ class RuleSetRestApiUnitTest {
 		assertTrue(getAvailableRuleSets().isEmpty());
 		assertTrue(getAgentNodes().isEmpty());
 
-		RuleSetRestApi.startRulesControllerRest(prepareRuleSet());
+		RuleSetRestApi.startRulesControllerRest(prepareRuleSet(), 6999);
 
 		assertTrue(getAvailableRuleSets().containsKey(DEFAULT_RULE_SET));
 		assertTrue(getAgentNodes().isEmpty());
@@ -59,7 +59,7 @@ class RuleSetRestApiUnitTest {
 		assertTrue(getAvailableRuleSets().isEmpty());
 		assertTrue(getAgentNodes().isEmpty());
 
-		RuleSetRestApi.startRulesControllerRest(prepareRuleSet(), "test-rulesets");
+		RuleSetRestApi.startRulesControllerRest(prepareRuleSet(), "test-rulesets", 6999);
 
 		assertEquals(2, getAvailableRuleSets().size());
 		assertTrue(getAvailableRuleSets().containsKey("TEST_RULE_SET"));

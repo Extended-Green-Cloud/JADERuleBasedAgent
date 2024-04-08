@@ -16,8 +16,8 @@ import org.jrba.agentmodel.domain.node.AgentNode;
 import org.jrba.exception.InvalidFileException;
 import org.jrba.rulesengine.rest.domain.RuleSetRest;
 import org.jrba.rulesengine.ruleset.RuleSet;
+import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ConfigurableApplicationContext;
 
 import com.google.common.annotations.VisibleForTesting;
@@ -35,16 +35,17 @@ public class RuleSetRestApi {
 	protected static ConfigurableApplicationContext context;
 
 	public static void main(String[] args) {
-		startSpring();
+		startSpring(5000);
 	}
 
 	/**
 	 * Method starts REST controller that listens for new rule sets.
 	 *
 	 * @param ruleSet default rule set added to the map under the name DEFAULT_RULE_SET
+	 * @param port    port of SpringBoot application
 	 */
-	public static void startRulesControllerRest(final RuleSet ruleSet) {
-		startSpring();
+	public static void startRulesControllerRest(final RuleSet ruleSet, final int port) {
+		startSpring(port);
 		availableRuleSets.put(DEFAULT_RULE_SET, ruleSet);
 	}
 
@@ -53,9 +54,10 @@ public class RuleSetRestApi {
 	 *
 	 * @param ruleSet      default rule set added to the map under the name DEFAULT_RULE_SET
 	 * @param ruleSetsPath path to the folder in /resources containing initial rule sets
+	 * @param port         port of SpringBoot application
 	 */
-	public static void startRulesControllerRest(final RuleSet ruleSet, final String ruleSetsPath) {
-		startSpring();
+	public static void startRulesControllerRest(final RuleSet ruleSet, final String ruleSetsPath, final int port) {
+		startSpring(port);
 		availableRuleSets.put(DEFAULT_RULE_SET, ruleSet);
 
 		final List<File> ruleSetFiles = readAllFiles(ruleSetsPath);
@@ -78,10 +80,14 @@ public class RuleSetRestApi {
 		return agentNodes;
 	}
 
-	private static void startSpring() {
-		final SpringApplicationBuilder builder = new SpringApplicationBuilder(RuleSetRestApi.class);
-		builder.headless(false);
-		context = builder.run();
+	private static void startSpring(final int port) {
+		final HashMap<String, Object> props = new HashMap<>();
+		props.put("server.port", port);
+
+		final SpringApplication app = new SpringApplication(RuleSetRestApi.class);
+		app.setHeadless(false);
+		app.setDefaultProperties(props);
+		context = app.run();
 
 		availableRuleSets = new HashMap<>();
 		agentNodes = new ArrayList<>();
