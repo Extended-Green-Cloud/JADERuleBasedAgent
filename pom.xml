@@ -7,7 +7,7 @@
 	<!-- Basic configuration of the project	-->
 	<groupId>io.github.extended-green-cloud</groupId>
 	<artifactId>jrba</artifactId>
-	<version>1.0</version>
+	<version>1.1</version>
 	<packaging>jar</packaging>
 
 	<!-- Metadata configuration -->
@@ -296,31 +296,6 @@
 					</execution>
 				</executions>
 			</plugin>
-			<!-- Plugin to build dependencies -->
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-shade-plugin</artifactId>
-				<version>3.5.1</version>
-				<executions>
-					<execution>
-						<phase>package</phase>
-						<goals>
-							<goal>shade</goal>
-						</goals>
-						<configuration>
-							<createDependencyReducedPom>false</createDependencyReducedPom>
-							<filters>
-								<filter>
-									<artifact>*:*</artifact>
-									<excludes>
-										<exclude>**/Log4j2Plugins.dat</exclude>
-									</excludes>
-								</filter>
-							</filters>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
 			<!-- Plugin for fixing test's warnings -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -348,6 +323,7 @@
 				<configuration>
 					<publishingServerId>central</publishingServerId>
 					<tokenAuth>true</tokenAuth>
+					<autoPublish>true</autoPublish>
 				</configuration>
 			</plugin>
 			<!-- Generate Java source -->

@@ -35,7 +35,7 @@ public class RuleSetRestApi {
 	protected static ConfigurableApplicationContext context;
 
 	public static void main(String[] args) {
-		startSpring(5000);
+		startSpring();
 	}
 
 	/**
@@ -78,6 +78,15 @@ public class RuleSetRestApi {
 
 	public static List<AgentNode> getAgentNodes() {
 		return agentNodes;
+	}
+
+	private static void startSpring() {
+		final SpringApplication app = new SpringApplication(RuleSetRestApi.class);
+		app.setHeadless(false);
+		context = app.run();
+
+		availableRuleSets = new HashMap<>();
+		agentNodes = new ArrayList<>();
 	}
 
 	private static void startSpring(final int port) {
