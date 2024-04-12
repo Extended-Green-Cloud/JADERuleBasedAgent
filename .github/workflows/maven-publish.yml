@@ -1,5 +1,6 @@
 name: Maven Central Release
 on:
+  workflow_dispatch:
   push:
     tags:
       - version*
