@@ -25,7 +25,14 @@ jobs:
         gpg-passphrase: GPG_PASS
         cache: maven
     - name: Initialize JADE repo
-      run: mvn initialize
+      run: | 
+       mvn org.apache.maven.plugins:maven-install-plugin:3.1.1:install-file \
+       -Dfile=${pom.basedir}/lib/jade.jar \
+       -DgroupId=com.tilab.jade \
+       -DartifactId=jade \
+       -Dversion=4.6 \
+       -Dpackaging=jar \
+       -DgeneratePom=true
       
     - name: Build and Deploy
       run: mvn clean deploy
