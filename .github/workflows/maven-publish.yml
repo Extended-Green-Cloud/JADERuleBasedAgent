@@ -26,7 +26,7 @@ jobs:
         cache: maven
 
     - name: Build and Deploy
-      run: mvn -U -B clean initialize deploy
+      run: mvn clean initialize deploy
       env:
           GPG_PASS: ${{ secrets.MAVEN_GPG_PASSPHRASE }}
           MVN_USERNAME: ${{ secrets.MAVEN_USERNAME }}
