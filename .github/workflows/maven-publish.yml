@@ -24,9 +24,11 @@ jobs:
         gpg-private-key: ${{ secrets.MAVEN_GPG_PRIVATE_KEY }}
         gpg-passphrase: GPG_PASS
         cache: maven
-
+    - name: Initialize JADE repo
+      run: mvn initialize
+      
     - name: Build and Deploy
-      run: mvn clean initialize deploy
+      run: mvn clean deploy
       env:
           GPG_PASS: ${{ secrets.MAVEN_GPG_PASSPHRASE }}
           MVN_USERNAME: ${{ secrets.MAVEN_USERNAME }}
