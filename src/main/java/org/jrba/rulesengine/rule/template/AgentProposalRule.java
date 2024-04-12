@@ -36,7 +36,10 @@ import jade.lang.acl.ACLMessage;
 import lombok.Getter;
 
 /**
- * Abstract class defining structure of a rule which handles default Proposal initiator behaviour
+ * Abstract class defining structure of a rule which handles default Proposal initiator behaviour.
+ *
+ * @param <E> type of node connected to the Agent
+ * @param <T> type of properties of Agent
  */
 @Getter
 public class AgentProposalRule<T extends AgentProps, E extends AgentNode<T>> extends AgentBasicRule<T, E> {
@@ -89,6 +92,9 @@ public class AgentProposalRule<T extends AgentProps, E extends AgentNode<T>> ext
 		initializeSteps();
 	}
 
+	/**
+	 * Method assigns a list of PROPOSE protocol steps.
+	 */
 	public void initializeSteps() {
 		stepRules = new ArrayList<>(List.of(
 				new CreateProposalMessageRule(),
@@ -114,21 +120,30 @@ public class AgentProposalRule<T extends AgentProps, E extends AgentNode<T>> ext
 	}
 
 	/**
-	 * Method executed when proposal message is to be created
+	 * Method executed when proposal message is to be created.
+	 *
+	 * @param facts facts with additional parameters
+	 * @return initialized proposal message
 	 */
 	protected ACLMessage createProposalMessage(final RuleSetFacts facts) {
 		return MessageBuilder.builder(facts.get(RULE_SET_IDX).toString(), PROPOSE).build();
 	}
 
 	/**
-	 * Method executed when ACCEPT_PROPOSAL message is to be handled
+	 * Method executed when ACCEPT_PROPOSAL message is to be handled.
+	 *
+	 * @param facts  facts facts with additional parameters
+	 * @param accept message accepting the proposal
 	 */
 	protected void handleAcceptProposal(final ACLMessage accept, final RuleSetFacts facts) {
 		// TO BE OVERRIDDEN BY USER
 	}
 
 	/**
-	 * Method executed when REJECT_PROPOSAL message is to be handled
+	 * Method executed when REJECT_PROPOSAL message is to be handled.
+	 *
+	 * @param facts  facts facts with additional parameters
+	 * @param reject message rejecting the proposal
 	 */
 	protected void handleRejectProposal(final ACLMessage reject, final RuleSetFacts facts) {
 		// TO BE OVERRIDDEN BY USER

@@ -18,14 +18,14 @@ import jade.lang.acl.ACLMessage;
 import jade.proto.ProposeInitiator;
 
 /**
- * Abstract behaviour providing template initiating Proposal protocol handled with rules
+ * Abstract behaviour providing template initiating Proposal protocol handled with rules.
  */
 public class InitiateProposal extends ProposeInitiator {
 
 	protected RuleSetFacts facts;
 	protected RulesController<?, ?> controller;
 
-	protected InitiateProposal(final Agent agent, final RuleSetFacts facts, final RulesController<?, ?> controller) {
+	private InitiateProposal(final Agent agent, final RuleSetFacts facts, final RulesController<?, ?> controller) {
 		super(agent, facts.get(PROPOSAL_CREATE_MESSAGE));
 
 		this.controller = controller;
@@ -74,14 +74,18 @@ public class InitiateProposal extends ProposeInitiator {
 	}
 
 	/**
-	 * Method can be optionally overridden in order to perform facts-based actions after handling acceptance message
+	 * Method can be optionally overridden in order to perform facts-based actions after handling acceptance message.
+	 *
+	 * @param facts facts with additional parameters
 	 */
 	protected void postProcessAcceptProposal(final RuleSetFacts facts) {
 		// to be overridden if necessary
 	}
 
 	/**
-	 * Method can be optionally overridden in order to perform facts-based actions after handling rejection message
+	 * Method can be optionally overridden in order to perform facts-based actions after handling rejection message.
+	 *
+	 * @param facts facts with additional parameters
 	 */
 	protected void postProcessRejectProposal(final RuleSetFacts facts) {
 		// to be overridden if necessary

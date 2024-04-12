@@ -5,10 +5,39 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<!-- Basic configuration of the project	-->
-	<groupId>org.jrba</groupId>
-	<artifactId>jade-rule-based-agent</artifactId>
-	<version>1.0</version>
+	<groupId>io.github.extended-green-cloud</groupId>
+	<artifactId>jrba</artifactId>
+	<version>1.2</version>
 	<packaging>jar</packaging>
+
+	<!-- Metadata configuration -->
+	<name>JADERuleBasedAgent</name>
+	<description>Library extending the JADE agent platform with rule-driven agents' behaviours.</description>
+	<url>https://github.com/Extended-Green-Cloud</url>
+
+	<!-- Package license -->
+	<licenses>
+		<license>
+			<name>The Apache License, Version 2.0</name>
+			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+		</license>
+	</licenses>
+
+	<!-- Project's repository connection -->
+	<scm>
+		<connection>scm:git:git@github.com:Extended-Green-Cloud/JADERuleBasedAgent.git</connection>
+		<developerConnection>scm:git:ssh://github.com:Extended-Green-Cloud/JADERuleBasedAgent.git</developerConnection>
+		<url>https://github.com/Extended-Green-Cloud/JADERuleBasedAgent</url>
+	</scm>
+
+	<!-- Developers information -->
+	<developers>
+		<developer>
+			<id>zwrona</id>
+			<name>Zofia Wrona</name>
+			<email>zofia.wrona.stud@pw.edu.pl</email>
+		</developer>
+	</developers>
 
 	<!-- Standard properties	-->
 	<properties>
@@ -161,14 +190,17 @@
 		<dependency>
 			<groupId>org.mockito</groupId>
 			<artifactId>mockito-core</artifactId>
+			<version>5.10.0</version>
 		</dependency>
 		<dependency>
 			<groupId>org.mockito</groupId>
 			<artifactId>mockito-junit-jupiter</artifactId>
+			<version>5.10.0</version>
 		</dependency>
 		<dependency>
 			<groupId>org.junit.jupiter</groupId>
 			<artifactId>junit-jupiter</artifactId>
+			<version>5.10.0</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
@@ -211,12 +243,6 @@
 				</exclusions>
 			</dependency>
 			<dependency>
-				<groupId>org.mockito</groupId>
-				<artifactId>mockito-junit-jupiter</artifactId>
-				<version>5.10.0</version>
-				<scope>test</scope>
-			</dependency>
-			<dependency>
 				<groupId>org.junit</groupId>
 				<artifactId>junit-bom</artifactId>
 				<version>5.10.2</version>
@@ -229,6 +255,25 @@
 	<!-- Build configuration -->
 	<build>
 		<plugins>
+			<!-- Plugin for building annotations -->
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>build-helper-maven-plugin</artifactId>
+				<version>3.3.0</version>
+				<executions>
+					<execution>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>add-source</goal>
+						</goals>
+						<configuration>
+							<sources>
+								<source>${project.build.directory}/generated-sources/annotations</source>
+							</sources>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
 			<!-- Plugin for installing custom JADE dependency -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -251,25 +296,6 @@
 					</execution>
 				</executions>
 			</plugin>
-			<!-- Plugin for building annotations -->
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>build-helper-maven-plugin</artifactId>
-				<version>3.3.0</version>
-				<executions>
-					<execution>
-						<phase>generate-sources</phase>
-						<goals>
-							<goal>add-source</goal>
-						</goals>
-						<configuration>
-							<sources>
-								<source>${project.build.directory}/generated-sources/annotations</source>
-							</sources>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
 			<!-- Plugin for fixing test's warnings -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -288,8 +314,94 @@
 					<parameters>true</parameters>
 				</configuration>
 			</plugin>
+			<!-- Publishing to Maven Central -->
+			<plugin>
+				<groupId>org.sonatype.central</groupId>
+				<artifactId>central-publishing-maven-plugin</artifactId>
+				<version>0.4.0</version>
+				<extensions>true</extensions>
+				<configuration>
+					<publishingServerId>central</publishingServerId>
+					<tokenAuth>true</tokenAuth>
+					<autoPublish>true</autoPublish>
+				</configuration>
+			</plugin>
+			<!-- Generate Java source -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-source-plugin</artifactId>
+				<version>3.3.1</version>
+				<executions>
+					<execution>
+						<id>attach-sources</id>
+						<goals>
+							<goal>jar-no-fork</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<!-- Generate JavaDocs -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<version>3.6.3</version>
+				<executions>
+					<execution>
+						<id>attach-javadocs</id>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<!-- Signing artifacts -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-gpg-plugin</artifactId>
+				<version>3.0.1</version>
+				<executions>
+					<execution>
+						<id>sign-artifacts</id>
+						<phase>verify</phase>
+						<goals>
+							<goal>sign</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<gpgArguments>
+						<arg>--pinentry-mode</arg>
+						<arg>loopback</arg>
+					</gpgArguments>
+				</configuration>
+			</plugin>
+			<!-- Nexus -->
+			<plugin>
+				<groupId>org.sonatype.plugins</groupId>
+				<artifactId>nexus-staging-maven-plugin</artifactId>
+				<version>1.6.8</version>
+				<extensions>true</extensions>
+				<configuration>
+					<serverId>ossrh</serverId>
+					<nexusUrl>https://s01.oss.sonatype.org/</nexusUrl>
+					<autoReleaseAfterClose>true</autoReleaseAfterClose>
+				</configuration>
+			</plugin>
 		</plugins>
 		<sourceDirectory>src/main/java</sourceDirectory>
 		<testSourceDirectory>src/test/java</testSourceDirectory>
 	</build>
+
+	<!-- Distribution management -->
+	<distributionManagement>
+		<snapshotRepository>
+			<id>ossrh</id>
+			<url>https://s01.oss.sonatype.org/content/repositories/snapshots</url>
+		</snapshotRepository>
+		<repository>
+			<id>ossrh</id>
+			<url>https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+		</repository>
+	</distributionManagement>
+
 </project>

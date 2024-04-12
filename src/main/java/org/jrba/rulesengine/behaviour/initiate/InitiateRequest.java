@@ -27,12 +27,15 @@ import jade.core.Agent;
 import jade.lang.acl.ACLMessage;
 import jade.proto.AchieveREInitiator;
 
+/**
+ * Abstract behaviour providing template initiating Request protocol handled with rules
+ */
 public class InitiateRequest extends AchieveREInitiator {
 
 	protected RuleSetFacts facts;
 	protected RulesController<?, ?> controller;
 
-	protected InitiateRequest(final Agent agent, final RuleSetFacts facts, final RulesController<?, ?> controller) {
+	private InitiateRequest(final Agent agent, final RuleSetFacts facts, final RulesController<?, ?> controller) {
 		super(agent, facts.get(REQUEST_CREATE_MESSAGE));
 
 		this.controller = controller;
@@ -101,21 +104,27 @@ public class InitiateRequest extends AchieveREInitiator {
 	}
 
 	/**
-	 * Method can be optionally overridden in order to perform facts-based actions after handling inform message
+	 * Method can be optionally overridden in order to perform facts-based actions after handling inform message.
+	 *
+	 * @param facts facts with additional parameters
 	 */
 	protected void postProcessInform(final RuleSetFacts facts) {
 		// to be overridden if necessary
 	}
 
 	/**
-	 * Method can be optionally overridden in order to perform facts-based actions after handling refuse message
+	 * Method can be optionally overridden in order to perform facts-based actions after handling refuse message.
+	 *
+	 * @param facts facts with additional parameters
 	 */
 	protected void postProcessRefuse(final RuleSetFacts facts) {
 		// to be overridden if necessary
 	}
 
 	/**
-	 * Method can be optionally overridden in order to perform facts-based actions after handling failure message
+	 * Method can be optionally overridden in order to perform facts-based actions after handling failure message.
+	 *
+	 * @param facts facts with additional parameters
 	 */
 	protected void postProcessFailure(final RuleSetFacts facts) {
 		// to be overridden if necessary

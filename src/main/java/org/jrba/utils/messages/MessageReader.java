@@ -22,6 +22,7 @@ public class MessageReader {
 	 *
 	 * @param message           messages to read
 	 * @param expectedClassType class type of the message body
+	 * @param <T>               type of the message content
 	 * @return mapped to Object message content
 	 */
 	public static <T> T readMessageContent(final ACLMessage message, final Class<T> expectedClassType) {

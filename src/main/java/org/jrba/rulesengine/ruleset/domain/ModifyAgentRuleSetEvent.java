@@ -11,6 +11,9 @@ import org.jrba.rulesengine.ruleset.RuleSet;
 
 import lombok.Getter;
 
+/**
+ * Event triggered when the agent's rule set is to be modified.
+ */
 @Getter
 public class ModifyAgentRuleSetEvent extends ExternalEvent {
 
@@ -18,7 +21,11 @@ public class ModifyAgentRuleSetEvent extends ExternalEvent {
 	private final RuleSet newRuleSet;
 
 	/**
-	 * Default event constructor
+	 * Default event constructor.
+	 *
+	 * @param agentName    name of the agent
+	 * @param newRuleSet   new agent's rule set
+	 * @param replaceFully flag indicating if the agent's rule set is to be replaced fully or just modified
 	 */
 	public ModifyAgentRuleSetEvent(final Boolean replaceFully, final RuleSet newRuleSet, final String agentName) {
 		super(agentName, MODIFY_RULE_SET, Instant.now());

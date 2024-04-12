@@ -4,8 +4,6 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
-import org.jrba.rulesengine.enums.rulesteptype.RuleStepType;
-import org.jrba.rulesengine.enums.ruletype.AgentRuleType;
 import org.jrba.rulesengine.mvel.MVELObjectType;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -15,6 +13,9 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import lombok.Getter;
 import lombok.Setter;
 
+/**
+ * REST representation of AgentRule.
+ */
 @Getter
 @Setter
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -51,4 +52,5 @@ public class RuleRest implements Serializable {
 	List<String> imports;
 	String execute;
 	String evaluate;
+
 }

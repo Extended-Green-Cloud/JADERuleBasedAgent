@@ -5,8 +5,11 @@ package org.jrba.exception;
  */
 public class CannotFindRuleSetException extends RuntimeException {
 
-	public static final String NO_RULE_SET_FOUND = "Couldn't find a rule set with given name.";
+	private static final String NO_RULE_SET_FOUND = "Couldn't find a rule set with given name.";
 
+	/**
+	 * Default constructor.
+	 */
 	public CannotFindRuleSetException() {
 		super(NO_RULE_SET_FOUND);
 	}

@@ -14,7 +14,7 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 public interface EventType {
 
 	/**
-	 * @return String type of the rule executed upon detection of given event
+	 * @return name of the rule type
 	 */
 	String getRuleType();
 }
