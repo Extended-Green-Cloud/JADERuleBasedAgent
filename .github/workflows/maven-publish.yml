@@ -1,0 +1,31 @@
+name: Maven Central Release
+on:
+  release:
+    types: [created]
+
+jobs:
+  build:
+    runs-on: windows-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set up JDK 21
+      uses: actions/setup-java@v3
+      with:
+        java-version: '21'
+        distribution: 'temurin'
+        server-id: ossrh
+        server-username: MVN_USERNAME 
+        server-password: MVN_PASSWORD
+        gpg-private-key: ${{ secrets.MAVEN_GPG_PRIVATE_KEY }}
+        gpg-passphrase: GPG_PASS
+        cache: maven
+
+    - name: Build and Deploy
+      run: mvn -U -B clean deploy
+      env:
+          GPG_PASS: ${{ secrets.MAVEN_GPG_PASSPHRASE }}
+          MVN_USERNAME: ${{ secrets.MAVEN_USERNAME }}
+          MVN_PASSWORD: ${{ secrets.MAVEN_PASSWORD }}
