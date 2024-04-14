@@ -1,11 +1,13 @@
 name: Maven Central Release
 on:
-  release:
-    types: [created]
+  workflow_dispatch:
+  push:
+    tags:
+      - version*
 
 jobs:
   build:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
     permissions:
       contents: read
       packages: write
@@ -16,15 +18,24 @@ jobs:
       with:
         java-version: '21'
         distribution: 'temurin'
-        server-id: ossrh
+        server-id: central
         server-username: MVN_USERNAME 
         server-password: MVN_PASSWORD
         gpg-private-key: ${{ secrets.MAVEN_GPG_PRIVATE_KEY }}
         gpg-passphrase: GPG_PASS
         cache: maven
-
+    - name: Initialize JADE repo
+      run: | 
+       mvn org.apache.maven.plugins:maven-install-plugin:3.1.1:install-file \
+       -Dfile=${{ github.workspace }}/lib/jade.jar \
+       -DgroupId=com.tilab.jade \
+       -DartifactId=jade \
+       -Dversion=4.6 \
+       -Dpackaging=jar \
+       -DgeneratePom=true
+      
     - name: Build and Deploy
-      run: mvn -U -B clean deploy
+      run: mvn clean deploy
       env:
           GPG_PASS: ${{ secrets.MAVEN_GPG_PASSPHRASE }}
           MVN_USERNAME: ${{ secrets.MAVEN_USERNAME }}

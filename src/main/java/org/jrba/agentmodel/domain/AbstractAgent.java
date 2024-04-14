@@ -26,7 +26,11 @@ import lombok.Getter;
 import lombok.Setter;
 
 /**
- * Abstract class representing JADE-based agent
+ * Abstract class representing JADE-based agent.
+ * It should be extended by all specific agent types that are to be using rules.
+ *
+ * @param <T> type of node connected to the Agent
+ * @param <E> type of properties of Agent
  */
 @Getter
 @Setter
@@ -34,11 +38,13 @@ public class AbstractAgent<T extends AgentNode<E>, E extends AgentProps> extends
 		Serializable {
 
 	private static final Logger logger = LoggerFactory.getLogger(AbstractAgent.class);
-
 	protected T agentNode;
 	protected E properties;
 	protected RulesController<E, T> rulesController;
 
+	/**
+	 * Default constructor.
+	 */
 	public AbstractAgent() {
 		setEnabledO2ACommunication(true, getObjectsNumber());
 	}
@@ -64,7 +70,9 @@ public class AbstractAgent<T extends AgentNode<E>, E extends AgentProps> extends
 	}
 
 	/**
-	 * Abstract method that is used to prepare starting behaviours for given agent
+	 * Abstract method that is used to prepare starting behaviours for given agente
+	 *
+	 * @return list of behaviours that are to be initially initiated by the Agent
 	 */
 	@VisibleForTesting
 	protected List<Behaviour> prepareStartingBehaviours() {
@@ -126,6 +134,8 @@ public class AbstractAgent<T extends AgentNode<E>, E extends AgentProps> extends
 
 	/**
 	 * Method can be overridden in case the agent accepts some objects put into the agent.
+	 *
+	 * @return number of objects that are to be passed to the Agent before starting its behaviours.
 	 */
 	protected int getObjectsNumber() {
 		return 0;
@@ -133,6 +143,8 @@ public class AbstractAgent<T extends AgentNode<E>, E extends AgentProps> extends
 
 	/**
 	 * Method should be overridden in case the name of default rule set differs from "DEFAULT_RULE_SET".
+	 *
+	 * @return name of the default rule set run by the agent
 	 */
 	protected String getDefaultRuleSet() {
 		return DEFAULT_RULE_SET;

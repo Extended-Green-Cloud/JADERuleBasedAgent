@@ -29,7 +29,10 @@ import jade.core.behaviours.Behaviour;
 import lombok.Getter;
 
 /**
- * Abstract class defining structure of a rule which adds rule-set-specific behaviours to the agent
+ * Abstract class defining structure of a rule which adds rule-set-specific behaviours to the agent.
+ *
+ * @param <E> type of node connected to the Agent
+ * @param <T> type of properties of Agent
  */
 @Getter
 public class AgentBehaviourRule<T extends AgentProps, E extends AgentNode<T>> extends AgentBasicRule<T, E> implements
@@ -71,7 +74,9 @@ public class AgentBehaviourRule<T extends AgentProps, E extends AgentNode<T>> ex
 	}
 
 	/**
-	 * Method initialize set of behaviours that are to be added
+	 * Method initialize set of behaviours that are to be added.
+	 *
+	 * @return Set of agent behaviours
 	 */
 	protected Set<Behaviour> initializeBehaviours() {
 		return new HashSet<>();

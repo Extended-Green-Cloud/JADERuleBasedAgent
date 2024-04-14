@@ -33,12 +33,10 @@ import java.util.List;
 import org.jrba.agentmodel.domain.node.AgentNode;
 import org.jrba.agentmodel.domain.props.AgentProps;
 import org.jrba.rulesengine.RulesController;
-import org.jrba.rulesengine.enums.ruletype.AgentRuleType;
 import org.jrba.rulesengine.rest.domain.CallForProposalRuleRest;
 import org.jrba.rulesengine.rule.AgentBasicRule;
 import org.jrba.rulesengine.rule.AgentRule;
 import org.jrba.rulesengine.rule.AgentRuleDescription;
-import org.jrba.rulesengine.rule.simple.AgentBehaviourRule;
 import org.jrba.rulesengine.ruleset.RuleSetFacts;
 import org.jrba.utils.messages.MessageBuilder;
 import org.mvel2.MVEL;
@@ -47,7 +45,10 @@ import jade.lang.acl.ACLMessage;
 import lombok.Getter;
 
 /**
- * Abstract class defining structure of a rule which handles default Call For Proposal initiator behaviour
+ * Abstract class defining structure of a rule which handles default Call For Proposal initiator behaviour.
+ *
+ * @param <E> type of node connected to the Agent
+ * @param <T> type of properties of Agent
  */
 @Getter
 public class AgentCFPRule<T extends AgentProps, E extends AgentNode<T>> extends AgentBasicRule<T, E> {
@@ -118,6 +119,9 @@ public class AgentCFPRule<T extends AgentProps, E extends AgentNode<T>> extends 
 		initializeSteps();
 	}
 
+	/**
+	 * Method assigns a list of CFP steps.
+	 */
 	public void initializeSteps() {
 		stepRules = new ArrayList<>(List.of(
 				new CreateCFPRule(),
@@ -146,14 +150,24 @@ public class AgentCFPRule<T extends AgentProps, E extends AgentNode<T>> extends 
 	}
 
 	/**
-	 * Method executed when CFP message is to be created
+	 * Method executed when CFP message is to be created.
+	 *
+	 * @param facts facts used to create CFP message
+	 * @return initialized CFP message
 	 */
 	protected ACLMessage createCFPMessage(final RuleSetFacts facts) {
 		return MessageBuilder.builder(facts.get(RULE_SET_IDX).toString(), ACLMessage.CFP).build();
 	}
 
 	/**
-	 * Method executed when new proposal is retrieved, and it is to be compared with existing best proposal
+	 * Method executed when new proposal is retrieved, and it is to be compared with existing best proposal.
+	 *
+	 * @param facts        facts with additional parameters to compare proposals
+	 * @param bestProposal proposal which is currently the best
+	 * @param newProposal  newly received proposal
+	 * @return -1 - when newProposal is better,
+	 * 0 - when proposals are equivalent,
+	 * 1 - when bestProposal is better
 	 */
 	protected int compareProposals(final RuleSetFacts facts, final ACLMessage bestProposal,
 			final ACLMessage newProposal) {
@@ -161,28 +175,39 @@ public class AgentCFPRule<T extends AgentProps, E extends AgentNode<T>> extends 
 	}
 
 	/**
-	 * Method executed when a proposal is to be rejected
+	 * Method executed when a proposal is to be rejected.
+	 *
+	 * @param proposalToReject proposal, which is to be rejected.
+	 * @param facts            facts with additional parameters to reject proposal
 	 */
 	protected void handleRejectProposal(final ACLMessage proposalToReject, final RuleSetFacts facts) {
 		// TO BE OVERRIDDEN BY USER
 	}
 
 	/**
-	 * Method executed when agent received 0 responses
+	 * Method executed when agent received 0 responses.
+	 *
+	 * @param facts facts with additional parameters
 	 */
 	protected void handleNoResponses(final RuleSetFacts facts) {
 		// TO BE OVERRIDDEN BY USER
 	}
 
 	/**
-	 * Method executed when agent received 0 proposals
+	 * Method executed when agent received 0 proposals.
+	 *
+	 * @param facts facts with additional parameters
 	 */
 	protected void handleNoProposals(final RuleSetFacts facts) {
 		// TO BE OVERRIDDEN BY USER
 	}
 
 	/**
-	 * Method executed when agent received some proposals
+	 * Method executed when agent received some proposals.
+	 *
+	 * @param facts        facts with additional parameters
+	 * @param bestProposal proposal which is currently the best
+	 * @param allProposals all proposals, which has been received
 	 */
 	protected void handleProposals(final ACLMessage bestProposal, final Collection<ACLMessage> allProposals,
 			final RuleSetFacts facts) {

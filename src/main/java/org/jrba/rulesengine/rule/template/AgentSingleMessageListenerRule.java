@@ -34,7 +34,10 @@ import jade.lang.acl.MessageTemplate;
 import lombok.Getter;
 
 /**
- * Abstract class defining structure of a rule which handles default single message retrieval behaviour
+ * Abstract class defining structure of a rule which handles default single message retrieval behaviour.
+ *
+ * @param <E> type of node connected to the Agent
+ * @param <T> type of properties of Agent
  */
 @Getter
 public class AgentSingleMessageListenerRule<T extends AgentProps, E extends AgentNode<T>> extends AgentBasicRule<T, E> {
@@ -42,6 +45,10 @@ public class AgentSingleMessageListenerRule<T extends AgentProps, E extends Agen
 	protected Serializable expressionConstructMessageTemplate;
 	protected Serializable expressionSpecifyExpirationTime;
 	protected Serializable expressionHandleMessageProcessing;
+
+	/**
+	 * Compiled MVEL expression called when the timout is triggered and no message was received.
+	 */
 	protected Serializable expressionHandleMessageNotReceived;
 
 	/**
@@ -93,6 +100,9 @@ public class AgentSingleMessageListenerRule<T extends AgentProps, E extends Agen
 		initializeSteps();
 	}
 
+	/**
+	 * Method assigns a list of single message listener rule steps.
+	 */
 	public void initializeSteps() {
 		stepRules = new ArrayList<>(List.of(
 				new CreateSingleMessageListenerRule(),
@@ -117,28 +127,39 @@ public class AgentSingleMessageListenerRule<T extends AgentProps, E extends Agen
 	}
 
 	/**
-	 * Method construct template used to retrieve the message
+	 * Method construct template used to retrieve the message.
+	 *
+	 * @param facts facts with additional parameters
+	 * @return template that the retrieved message should match
 	 */
 	protected MessageTemplate constructMessageTemplate(final RuleSetFacts facts) {
 		return MessageTemplate.MatchAll();
 	}
 
 	/**
-	 * Method specifies the time after which the message will not be processed
+	 * Method specifies the time after which the message will not be processed.
+	 *
+	 * @param facts facts with additional parameters
+	 * @return number of milliseconds specifying the waiting limit for the message retrieval
 	 */
 	protected long specifyExpirationTime(final RuleSetFacts facts) {
 		return 0;
 	}
 
 	/**
-	 * Method defines handler used to process received message
+	 * Method defines handler used to process received message.
+	 *
+	 * @param facts   facts with additional parameters
+	 * @param message retrieved message
 	 */
 	protected void handleMessageProcessing(final ACLMessage message, final RuleSetFacts facts) {
 		// TO BE OVERRIDDEN BY USER
 	}
 
 	/**
-	 * Method handles case when message was not received on time
+	 * Method handles case when message was not received on time.
+	 *
+	 * @param facts facts with additional parameters
 	 */
 	protected void handleMessageNotReceived(final RuleSetFacts facts) {
 		// TO BE OVERRIDDEN BY USER

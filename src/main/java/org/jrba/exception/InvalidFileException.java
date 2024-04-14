@@ -5,6 +5,11 @@ package org.jrba.exception;
  */
 public class InvalidFileException extends RuntimeException {
 
+	/**
+	 * Default constructor.
+	 *
+	 * @param message error message that is to be displayed.
+	 */
 	public InvalidFileException(final String message) {
 		super(message);
 	}

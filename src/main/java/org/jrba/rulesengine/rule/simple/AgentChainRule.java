@@ -23,7 +23,10 @@ import org.mvel2.MVEL;
 import lombok.Getter;
 
 /**
- * Abstract class defining  a rule which after successful execution, triggers once evaluation of the given rule set
+ * Abstract class defining  a rule which after successful execution, triggers once evaluation of the given rule set.
+ *
+ * @param <E> type of node connected to the Agent
+ * @param <T> type of properties of Agent
  */
 @Getter
 public class AgentChainRule<T extends AgentProps, E extends AgentNode<T>> extends AgentBasicRule<T, E> implements

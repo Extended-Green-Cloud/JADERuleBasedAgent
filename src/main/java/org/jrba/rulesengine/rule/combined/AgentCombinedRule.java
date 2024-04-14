@@ -6,7 +6,6 @@ import static org.jrba.rulesengine.enums.ruletype.AgentRuleTypeEnum.BASIC;
 import static org.jrba.rulesengine.enums.ruletype.AgentRuleTypeEnum.COMBINED;
 import static org.jrba.rulesengine.mvel.MVELRuleMapper.getRuleForType;
 
-import java.io.Serial;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,13 +19,10 @@ import org.jrba.agentmodel.domain.node.AgentNode;
 import org.jrba.agentmodel.domain.props.AgentProps;
 import org.jrba.rulesengine.RulesController;
 import org.jrba.rulesengine.enums.rulecombinationtype.AgentCombinedRuleType;
-import org.jrba.rulesengine.enums.ruletype.AgentRuleType;
 import org.jrba.rulesengine.rest.domain.CombinedRuleRest;
 import org.jrba.rulesengine.rule.AgentBasicRule;
 import org.jrba.rulesengine.rule.AgentRule;
 import org.jrba.rulesengine.rule.AgentRuleDescription;
-import org.jrba.rulesengine.rule.simple.AgentBehaviourRule;
-import org.jrba.rulesengine.rule.template.AgentScheduledRule;
 import org.jrba.rulesengine.ruleset.RuleSet;
 import org.jrba.rulesengine.ruleset.RuleSetFacts;
 
@@ -34,7 +30,10 @@ import lombok.Getter;
 import lombok.Setter;
 
 /**
- * Abstract class defining structure of a rule which combines multiple rules and defines how they should be handled
+ * Abstract class defining structure of a rule which combines multiple rules and defines how they should be handled.
+ *
+ * @param <E> type of node connected to the Agent
+ * @param <T> type of properties of Agent
  */
 @Getter
 public class AgentCombinedRule<T extends AgentProps, E extends AgentNode<T>> extends AgentBasicRule<T, E> implements
@@ -154,7 +153,9 @@ public class AgentCombinedRule<T extends AgentProps, E extends AgentNode<T>> ext
 	}
 
 	/**
-	 * Method construct set of rules that are to be combined
+	 * Method construct set of rules that are to be combined.
+	 *
+	 * @return list of AgentRule used in the given combination
 	 */
 	protected List<AgentRule> constructRules() {
 		return new ArrayList<>();

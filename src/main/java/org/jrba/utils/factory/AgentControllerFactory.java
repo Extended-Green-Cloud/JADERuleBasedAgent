@@ -28,7 +28,7 @@ public interface AgentControllerFactory {
 	 * Method connects the agent controller
 	 *
 	 * @param agentController controller that is to be connected
-	 * @param agentNode interface node that is to be connected with the controller
+	 * @param agentNode       interface node that is to be connected with the controller
 	 * @return AgentController that can be started
 	 */
 	AgentController connectAgentController(final AgentController agentController, final AgentNode agentNode);
@@ -36,14 +36,16 @@ public interface AgentControllerFactory {
 	/**
 	 * Method runs the agent controllers
 	 *
-	 * @param controllers controllers that are to be run
+	 * @param controllers   controllers that are to be run
+	 * @param agentRunDelay delay after which the agent is to be run
 	 */
 	void runAgentControllers(final List<AgentController> controllers, final long agentRunDelay);
 
 	/**
 	 * Method runs single agent controller
 	 *
-	 * @param controller controller that is to be run
+	 * @param controller    controller that is to be run
+	 * @param agentRunDelay delay after which the agent is to be run
 	 */
 	void runAgentController(final AgentController controller, final long agentRunDelay);
 
@@ -51,8 +53,8 @@ public interface AgentControllerFactory {
 	 * Method used handle runnable execution termination
 	 *
 	 * @param executorService executor service that runs given process
-	 * @param timeout timeout value
-	 * @param timeoutUnit unit of timeout
+	 * @param timeout         timeout value
+	 * @param timeoutUnit     unit of timeout
 	 */
 	void shutdownAndAwaitTermination(final ExecutorService executorService,
 			final int timeout,

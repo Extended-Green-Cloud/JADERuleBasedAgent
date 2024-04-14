@@ -32,7 +32,10 @@ import jade.core.AID;
 import lombok.Getter;
 
 /**
- * Abstract class defining structure of a rule which handles default DF search behaviour
+ * Abstract class defining structure of a rule which handles default DF search behaviour.
+ *
+ * @param <E> type of node connected to the Agent
+ * @param <T> type of properties of Agent
  */
 @Getter
 public class AgentSearchRule<T extends AgentProps, E extends AgentNode<T>> extends AgentBasicRule<T, E> {
@@ -84,6 +87,9 @@ public class AgentSearchRule<T extends AgentProps, E extends AgentNode<T>> exten
 		initializeSteps();
 	}
 
+	/**
+	 * Method assigns a list of search rule steps.
+	 */
 	public void initializeSteps() {
 		stepRules = new ArrayList<>(List.of(new SearchForAgentsRule(), new NoResultsRule(), new AgentsFoundRule()));
 	}
@@ -105,21 +111,29 @@ public class AgentSearchRule<T extends AgentProps, E extends AgentNode<T>> exten
 	}
 
 	/**
-	 * Method searches for the agents in DF
+	 * Method searches for the agents in DF.
+	 *
+	 * @param facts facts with additional parameters
+	 * @return Set of AIDs of agents found by DF
 	 */
 	protected Set<AID> searchAgents(final RuleSetFacts facts) {
 		return new HashSet<>();
 	}
 
 	/**
-	 * Method executed when DF retrieved no results
+	 * Method executed when DF retrieved no results.
+	 *
+	 * @param facts facts with additional parameters
 	 */
 	protected void handleNoResults(final RuleSetFacts facts) {
 		// TO BE OVERRIDDEN BY USER
 	}
 
 	/**
-	 * Method executed when DF retrieved results
+	 * Method executed when DF retrieved results.
+	 *
+	 * @param facts facts with additional parameters
+	 * @param dfResults Set of AIDs of found agents
 	 */
 	protected void handleResults(final Set<AID> dfResults, final RuleSetFacts facts) {
 		// TO BE OVERRIDDEN BY USER

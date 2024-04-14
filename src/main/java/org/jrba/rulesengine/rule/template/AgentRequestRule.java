@@ -44,7 +44,10 @@ import jade.lang.acl.ACLMessage;
 import lombok.Getter;
 
 /**
- * Abstract class defining structure of a rule which handles default Request initiator behaviour
+ * Abstract class defining structure of a rule which handles default Request initiator behaviour.
+ *
+ * @param <E> type of node connected to the Agent
+ * @param <T> type of properties of Agent
  */
 @Getter
 public class AgentRequestRule<T extends AgentProps, E extends AgentNode<T>> extends AgentBasicRule<T, E> {
@@ -111,6 +114,9 @@ public class AgentRequestRule<T extends AgentProps, E extends AgentNode<T>> exte
 		initializeSteps();
 	}
 
+	/**
+	 * Method assigns a list of REQUEST protocol steps.
+	 */
 	public void initializeSteps() {
 		stepRules = new ArrayList<>(List.of(
 				new CreateRequestMessageRule(),
@@ -137,42 +143,61 @@ public class AgentRequestRule<T extends AgentProps, E extends AgentNode<T>> exte
 	}
 
 	/**
-	 * Method executed when request message is to be created
+	 * Method executed when request message is to be created.
+	 *
+	 * @param facts facts with additional parameters
+	 * @return initialized request message
 	 */
 	protected ACLMessage createRequestMessage(final RuleSetFacts facts) {
 		return MessageBuilder.builder(facts.get(RULE_SET_IDX).toString(), ACLMessage.REQUEST).build();
 	}
 
 	/**
-	 * Method evaluates if the action should be executed upon any message received
+	 * Method evaluates if the action should be executed upon any message received.
+	 *
+	 * @param facts facts with additional parameters
+	 * @return boolean indicating if the rule is to be triggered
 	 */
 	protected boolean evaluateBeforeForAll(final RuleSetFacts facts) {
 		return true;
 	}
 
 	/**
-	 * Method executed when INFORM message is to be handled
+	 * Method executed when INFORM message is to be handled.
+	 *
+	 * @param facts  facts with additional parameters
+	 * @param inform received INFORM message
 	 */
 	protected void handleInform(final ACLMessage inform, final RuleSetFacts facts) {
 		// TO BE OVERRIDDEN BY USER
 	}
 
 	/**
-	 * Method executed when REFUSE message is to be handled
+	 * Method executed when REFUSE message is to be handled.
+	 *
+	 * @param facts  facts with additional parameters
+	 * @param refuse received REFUSE message
 	 */
 	protected void handleRefuse(final ACLMessage refuse, final RuleSetFacts facts) {
 		// TO BE OVERRIDDEN BY USER
 	}
 
 	/**
-	 * Method executed when FAILURE message is to be handled
+	 * Method executed when FAILURE message is to be handled.
+	 *
+	 * @param facts   facts with additional parameters
+	 * @param failure received FAILURE message
 	 */
 	protected void handleFailure(final ACLMessage failure, final RuleSetFacts facts) {
 		// TO BE OVERRIDDEN BY USER
 	}
 
 	/**
-	 * Optional method executed when ALL RESULT messages are to be handled
+	 * Optional method executed when ALL RESULT messages are to be handled.
+	 *
+	 * @param facts    facts with additional parameters
+	 * @param failures list of FAILURE messages
+	 * @param informs  list of INFORM messages
 	 */
 	protected void handleAllResults(final Collection<ACLMessage> informs, final Collection<ACLMessage> failures,
 			final RuleSetFacts facts) {

@@ -37,7 +37,7 @@ public class InitiateCallForProposal extends ContractNetInitiator {
 	protected RuleSetFacts facts;
 	protected RulesController<?, ?> controller;
 
-	protected InitiateCallForProposal(final Agent agent, final RuleSetFacts facts,
+	private InitiateCallForProposal(final Agent agent, final RuleSetFacts facts,
 			final RulesController<?, ?> controller) {
 		super(agent, facts.get(CFP_CREATE_MESSAGE));
 
@@ -126,14 +126,18 @@ public class InitiateCallForProposal extends ContractNetInitiator {
 	}
 
 	/**
-	 * Method can be optionally overridden in order to perform facts-based actions after handling all responses
+	 * Method can be optionally overridden in order to perform facts-based actions after handling all responses.
+	 *
+	 * @param facts facts with additional parameters
 	 */
 	protected void postProcessAllResponses(final RuleSetFacts facts) {
 		// to be overridden if necessary
 	}
 
 	/**
-	 * Method can be optionally overridden in order to perform facts-based actions after handling single proposal message
+	 * Method can be optionally overridden in order to perform facts-based actions after handling single proposal message.
+	 *
+	 * @param facts facts with additional parameters
 	 */
 	protected void postProcessProposal(final RuleSetFacts facts) {
 		// to be overridden if necessary

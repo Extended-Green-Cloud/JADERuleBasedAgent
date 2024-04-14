@@ -24,12 +24,14 @@ import lombok.Getter;
 
 /**
  * Class provides functionalities that handle agent behaviours via rule sets
+ *
+ * @param <T> type of properties of Agent
+ * @param <E> type of node connected to the Agent
  */
 @Getter
 public class RulesController<T extends AgentProps, E extends AgentNode<T>> {
 
 	private static final Logger logger = getLogger(RulesController.class);
-
 	protected Agent agent;
 	protected E agentNode;
 	protected T agentProps;
@@ -38,6 +40,9 @@ public class RulesController<T extends AgentProps, E extends AgentNode<T>> {
 	protected ConcurrentMap<Integer, RuleSet> ruleSets;
 	protected String baseRuleSet;
 
+	/**
+	 * Default constructor assigning initial controller's values.
+	 */
 	public RulesController() {
 		latestLongTermRuleSetIdx = new AtomicInteger(0);
 		latestRuleSetIdx = new AtomicInteger(0);
@@ -45,11 +50,12 @@ public class RulesController<T extends AgentProps, E extends AgentNode<T>> {
 	}
 
 	/**
-	 * Method initialize agent values
+	 * Method initialize agent values.
 	 *
-	 * @param agent      agent connected to the rules controller
-	 * @param agentProps agent properties
-	 * @param agentNode  GUI agent node
+	 * @param agent       agent connected to the rules controller
+	 * @param agentProps  agent properties
+	 * @param agentNode   GUI agent node
+	 * @param baseRuleSet name of the base rule set
 	 */
 	public void setAgent(Agent agent, T agentProps, E agentNode, String baseRuleSet) {
 		this.agent = agent;
@@ -64,7 +70,7 @@ public class RulesController<T extends AgentProps, E extends AgentNode<T>> {
 	}
 
 	/**
-	 * Method fires agent rule set for a set of facts
+	 * Method fires agent rule set for a set of facts.
 	 *
 	 * @param facts set of facts based on which actions are going to be taken
 	 */
@@ -79,7 +85,7 @@ public class RulesController<T extends AgentProps, E extends AgentNode<T>> {
 	}
 
 	/**
-	 * Method adds new agent's rule set
+	 * Method adds new agent's rule set.
 	 *
 	 * @param type type of rule set that is to be added
 	 * @param idx  index of the added rule set
@@ -91,9 +97,10 @@ public class RulesController<T extends AgentProps, E extends AgentNode<T>> {
 	}
 
 	/**
-	 * Method adds new agent's rule set
+	 * Method adds new agent's rule set.
 	 *
 	 * @param modifications modifications to current rule set that are to be applied
+	 * @param idx           index which is to be assigned to the new rule set
 	 */
 	public void addModifiedTemporaryRuleSetFromCurrent(final RuleSet modifications, final int idx) {
 		final RuleSet connectedRuleSet = new RuleSet(modifications, this);
@@ -103,7 +110,7 @@ public class RulesController<T extends AgentProps, E extends AgentNode<T>> {
 	}
 
 	/**
-	 * Method adds new agent's rule set
+	 * Method adds new agent's rule set.
 	 *
 	 * @param name name of rule set that is to be added
 	 * @param idx  index of the added ruleSet
@@ -115,7 +122,7 @@ public class RulesController<T extends AgentProps, E extends AgentNode<T>> {
 	}
 
 	/**
-	 * Method verifies if the rule set is to be removed from the controller
+	 * Method verifies if the rule set is to be removed from the controller.
 	 *
 	 * @param ruleSetForProcess map containing rule sets assigned to given process
 	 *                          (used to check if there are no processes still undergoing for a

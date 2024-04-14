@@ -15,21 +15,37 @@ import org.jrba.rulesengine.ruleset.RuleSetFacts;
  */
 public interface AgentRule extends Rule {
 
+	/**
+	 * @return name of the agent type
+	 */
 	String getAgentType();
 
+	/**
+	 * @return overall name of the rule type
+	 */
 	String getAgentRuleType();
 
+	/**
+	 * @return name of the rule type
+	 */
 	String getRuleType();
 
+	/**
+	 * @return name of the sub-rule type
+	 */
 	String getSubRuleType();
 
+	/**
+	 * @return name of the rule step
+	 */
 	String getStepType();
 
+	/**
+	 * @return boolean indicating if the rule is a step
+	 */
 	boolean isRuleStep();
 
 	/**
-	 * Method returns constructed rule
-	 *
 	 * @return constructed rule Object
 	 */
 	default List<AgentRule> getRules() {
@@ -73,6 +89,7 @@ public interface AgentRule extends Rule {
 
 	/**
 	 * Method clones a given rule to a new object instance
+	 *
 	 * @return cloned rule
 	 */
 	default AgentRule copy() {
