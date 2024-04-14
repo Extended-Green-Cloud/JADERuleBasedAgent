@@ -27,7 +27,7 @@ jobs:
     - name: Initialize JADE repo
       run: | 
        mvn org.apache.maven.plugins:maven-install-plugin:3.1.1:install-file \
-       -Dfile=${{ github.workspace }} /lib/jade.jar \
+       -Dfile=${{ github.workspace }}/lib/jade.jar \
        -DgroupId=com.tilab.jade \
        -DartifactId=jade \
        -Dversion=4.6 \
