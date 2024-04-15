@@ -5,6 +5,6 @@ package org.jrba.utils.factory.constants;
  */
 public class AgentControllerConstants {
 
-	public static final Long GRAPH_INITIALIZATION_DELAY = 7L;
+	public static final Long INITIALIZATION_DELAY = 7L;
 	public static final Integer RUN_AGENT_DELAY = 100;
 }

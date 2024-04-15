@@ -9,7 +9,7 @@ import static java.util.concurrent.TimeUnit.HOURS;
 import static java.util.concurrent.TimeUnit.MILLISECONDS;
 import static java.util.concurrent.TimeUnit.SECONDS;
 import static org.jrba.rulesengine.rest.RuleSetRestApi.addAgentNode;
-import static org.jrba.utils.factory.constants.AgentControllerConstants.GRAPH_INITIALIZATION_DELAY;
+import static org.jrba.utils.factory.constants.AgentControllerConstants.INITIALIZATION_DELAY;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,7 +33,7 @@ import lombok.AllArgsConstructor;
 @SuppressWarnings("rawtypes")
 public class AgentControllerFactoryImpl implements AgentControllerFactory {
 
-	private final ContainerController containerController;
+	protected final ContainerController containerController;
 
 	@Override
 	public AgentController createAgentController(final AgentArgs agentArgs, final String className) {
@@ -72,7 +72,7 @@ public class AgentControllerFactoryImpl implements AgentControllerFactory {
 		var scheduledExecutor = newSingleThreadScheduledExecutor();
 		scheduledExecutor.schedule(
 				() -> controllers.forEach(controller -> runAgentController(controller, agentRunDelay)),
-				GRAPH_INITIALIZATION_DELAY, SECONDS);
+				INITIALIZATION_DELAY, SECONDS);
 		shutdownAndAwaitTermination(scheduledExecutor, 1, HOURS);
 	}
 
