@@ -7,7 +7,7 @@
 	<!-- Basic configuration of the project	-->
 	<groupId>io.github.extended-green-cloud</groupId>
 	<artifactId>jrba</artifactId>
-	<version>1.2</version>
+	<version>1.3</version>
 	<packaging>jar</packaging>
 
 	<!-- Metadata configuration -->

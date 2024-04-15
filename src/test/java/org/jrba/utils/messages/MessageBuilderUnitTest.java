@@ -2,6 +2,7 @@ package org.jrba.utils.messages;
 
 import static jade.lang.acl.ACLMessage.PROPOSE;
 import static jade.lang.acl.ACLMessage.REQUEST;
+import static jade.lang.acl.ACLMessage.UNKNOWN;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatCollection;
 import static org.jrba.utils.mapper.JsonMapper.getMapper;
@@ -38,7 +39,12 @@ class MessageBuilderUnitTest {
 	@Test
 	@DisplayName("Test initialize MessageBuilder.")
 	void testInitializeMessageBuilder() {
-		ACLMessage message = MessageBuilder.builder(0, PROPOSE).build();
+		ACLMessage message = MessageBuilder.builder(0).build();
+
+		assertEquals("0", message.getOntology());
+		assertEquals(UNKNOWN, message.getPerformative());
+
+		message = MessageBuilder.builder(0, PROPOSE).build();
 
 		assertEquals("0", message.getOntology());
 		assertEquals(PROPOSE, message.getPerformative());

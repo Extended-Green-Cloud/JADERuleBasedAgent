@@ -5,42 +5,47 @@ package org.jrba.rulesengine.constants;
  */
 public class FactTypeConstants {
 
+	// RULE TYPE FACT
 	/**
 	 * Identifier of a fact specifying rule type.
 	 */
 	public static final String RULE_TYPE = "rule-type";
-
-	// RULE TYPE FACT
 	/**
 	 * Identifier of a fact specifying rule step type.
 	 */
 	public static final String RULE_STEP = "rule-step";
+
+	// DATA FACT
 	/**
 	 * Identifier of a fact specifying input data.
 	 */
 	public static final String INPUT_DATA = "input-data";
 
-	// DATA FACT
+	// RESULT FACT
 	/**
 	 * Identifier of a fact specifying results.
 	 */
 	public static final String RESULT = "result";
 
-	// RESULT FACT
+	// ADAPTATION FACTS
+	/**
+	 * Identifier of a fact specifying type of the adaptation that is to be done to the agent.
+	 */
+	public static final String ADAPTATION_TYPE = "adaptation-type";
+	/**
+	 * Identifier of a fact specifying additional adaptation parameters.
+	 */
+	public static final String ADAPTATION_PARAMS = "adaptation-params";
+
+	// AGENTS FACTS
 	/**
 	 * Identifier of a fact specifying a collection of agents.
 	 */
 	public static final String AGENTS = "agents";
-
-	// AGENTS FACTS
 	/**
 	 * Identifier of a fact specifying a single agent.
 	 */
 	public static final String AGENT = "agent";
-	/**
-	 * Identifier of a fact specifying index of the rule set.
-	 */
-	public static final String RULE_SET_IDX = "rule-set-idx";
 
 	// RULE SET FACT
 	/**
@@ -48,17 +53,25 @@ public class FactTypeConstants {
 	 */
 	public static final String RULE_SET_TYPE = "rule-set-type";
 	/**
+	 * Identifier of a fact specifying index of the rule set.
+	 */
+	public static final String RULE_SET_IDX = "rule-set-idx";
+	/**
+	 * Identifier of a fact specifying index of the next rule set.
+	 */
+	public static final String NEXT_RULE_SET_TYPE = "next-rule-set-type";
+
+	// RESOURCES FACTS
+	/**
 	 * Identifier of a fact specifying ambiguous resources.
 	 */
 	public static final String RESOURCES = "resources";
 
-	// RESOURCES FACTS
+	// EVENTS FACTS
 	/**
 	 * Identifier of a fact specifying time of the event's trigger.
 	 */
 	public static final String EVENT_TIME = "event-time";
-
-	// EVENTS FACTS
 	/**
 	 * Identifier of a fact specifying duration of the event.
 	 */
@@ -79,32 +92,32 @@ public class FactTypeConstants {
 	 * Identifier of a fact specifying time error associated with an event.
 	 */
 	public static final String SET_EVENT_ERROR = "set-event-error";
+
+	// BEHAVIOUR FACTS
 	/**
 	 * Identifier of a fact specifying behaviour's trigger time.
 	 */
 	public static final String TRIGGER_TIME = "trigger-time";
-
-	// BEHAVIOUR FACTS
 	/**
 	 * Identifier of a fact specifying behaviour's trigger period.
 	 */
 	public static final String TRIGGER_PERIOD = "trigger-period";
+
+	// SUBSCRIPTION FACTS
 	/**
 	 * Identifier of a fact specifying agents, which added their services to DF.
 	 */
 	public static final String SUBSCRIPTION_ADDED_AGENTS = "subscription-added-agents";
-
-	// SUBSCRIPTION FACTS
 	/**
 	 * Identifier of a fact specifying agents, which removed their services from DF.
 	 */
 	public static final String SUBSCRIPTION_REMOVED_AGENTS = "subscription-removed-agents";
+
+	// MESSAGE FACTS
 	/**
 	 * Identifier of a fact specifying a collection of messages.
 	 */
 	public static final String MESSAGES = "messages";
-
-	// MESSAGE FACTS
 	/**
 	 * Identifier of a fact specifying a single message.
 	 */
@@ -133,12 +146,12 @@ public class FactTypeConstants {
 	 * Identifier of a fact specifying received message.
 	 */
 	public static final String RECEIVED_MESSAGE = "received-message";
+
+	// CFP BEHAVIOUR FACTS
 	/**
 	 * Identifier of a fact specifying created CFP message.
 	 */
 	public static final String CFP_CREATE_MESSAGE = "cfp-create-message";
-
-	// CFP BEHAVIOUR FACTS
 	/**
 	 * Identifier of a fact specifying best CFP response message.
 	 */
@@ -159,12 +172,12 @@ public class FactTypeConstants {
 	 * Identifier of a fact specifying CFP comparison result.
 	 */
 	public static final String CFP_RESULT = "cfp-result";
+
+	// PROPOSAL BEHAVIOUR FACTS
 	/**
 	 * Identifier of a fact specifying sent proposal message.
 	 */
 	public static final String PROPOSAL_CREATE_MESSAGE = "proposal-create-message";
-
-	// PROPOSAL BEHAVIOUR FACTS
 	/**
 	 * Identifier of a fact specifying received ACCEPT_PROPOSAL response.
 	 */
@@ -173,12 +186,12 @@ public class FactTypeConstants {
 	 * Identifier of a fact specifying received REJECT_PROPOSAL response.
 	 */
 	public static final String PROPOSAL_REJECT_MESSAGE = "proposal-reject-message";
+
+	// REQUEST BEHAVIOUR FACTS
 	/**
 	 * Identifier of a fact specifying sent request message.
 	 */
 	public static final String REQUEST_CREATE_MESSAGE = "request-create-message";
-
-	// REQUEST BEHAVIOUR FACTS
 	/**
 	 * Identifier of a fact specifying received INFORM message.
 	 */

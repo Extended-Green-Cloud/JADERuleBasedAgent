@@ -1,5 +1,6 @@
 package org.jrba.utils.messages;
 
+import static jade.lang.acl.ACLMessage.UNKNOWN;
 import static java.lang.Integer.parseInt;
 import static java.util.Arrays.stream;
 import static org.jrba.utils.mapper.JsonMapper.getMapper;
@@ -25,6 +26,16 @@ public class MessageBuilder {
 	private MessageBuilder(final Integer ruleIdx, final Integer performative) {
 		aclMessage = new ACLMessage(performative);
 		aclMessage.setOntology(ruleIdx.toString());
+	}
+
+	/**
+	 * Builder creator.
+	 *
+	 * @param ruleIdx      index of the rule set
+	 * @return MessageBuilder
+	 */
+	public static MessageBuilder builder(final Integer ruleIdx) {
+		return new MessageBuilder(ruleIdx, UNKNOWN);
 	}
 
 	/**

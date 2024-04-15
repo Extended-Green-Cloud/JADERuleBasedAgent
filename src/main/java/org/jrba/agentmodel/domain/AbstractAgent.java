@@ -37,7 +37,7 @@ import lombok.Setter;
 public class AbstractAgent<T extends AgentNode<E>, E extends AgentProps> extends Agent implements
 		Serializable {
 
-	private static final Logger logger = LoggerFactory.getLogger(AbstractAgent.class);
+	protected static final Logger logger = LoggerFactory.getLogger(AbstractAgent.class);
 	protected T agentNode;
 	protected E properties;
 	protected RulesController<E, T> rulesController;
