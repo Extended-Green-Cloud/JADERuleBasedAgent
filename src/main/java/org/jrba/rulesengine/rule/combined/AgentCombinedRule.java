@@ -2,8 +2,8 @@ package org.jrba.rulesengine.rule.combined;
 
 import static java.util.Collections.singletonList;
 import static org.jrba.rulesengine.constants.RuleTypeConstants.DEFAULT_COMBINED_RULE;
-import static org.jrba.rulesengine.enums.ruletype.AgentRuleTypeEnum.BASIC;
-import static org.jrba.rulesengine.enums.ruletype.AgentRuleTypeEnum.COMBINED;
+import static org.jrba.rulesengine.types.ruletype.AgentRuleTypeEnum.BASIC;
+import static org.jrba.rulesengine.types.ruletype.AgentRuleTypeEnum.COMBINED;
 import static org.jrba.rulesengine.mvel.MVELRuleMapper.getRuleForType;
 
 import java.io.Serializable;
@@ -18,7 +18,7 @@ import org.jeasy.rules.support.composite.UnitRuleGroup;
 import org.jrba.agentmodel.domain.node.AgentNode;
 import org.jrba.agentmodel.domain.props.AgentProps;
 import org.jrba.rulesengine.RulesController;
-import org.jrba.rulesengine.enums.rulecombinationtype.AgentCombinedRuleType;
+import org.jrba.rulesengine.types.rulecombinationtype.AgentCombinedRuleType;
 import org.jrba.rulesengine.rest.domain.CombinedRuleRest;
 import org.jrba.rulesengine.rule.AgentBasicRule;
 import org.jrba.rulesengine.rule.AgentRule;

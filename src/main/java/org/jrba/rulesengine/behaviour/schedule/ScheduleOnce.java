@@ -5,8 +5,8 @@ import static org.jrba.rulesengine.constants.FactTypeConstants.RULE_SET_IDX;
 import static org.jrba.rulesengine.constants.FactTypeConstants.RULE_STEP;
 import static org.jrba.rulesengine.constants.FactTypeConstants.RULE_TYPE;
 import static org.jrba.rulesengine.constants.FactTypeConstants.TRIGGER_TIME;
-import static org.jrba.rulesengine.enums.rulesteptype.RuleStepTypeEnum.SCHEDULED_EXECUTE_ACTION_STEP;
-import static org.jrba.rulesengine.enums.rulesteptype.RuleStepTypeEnum.SCHEDULED_SELECT_TIME_STEP;
+import static org.jrba.rulesengine.types.rulesteptype.RuleStepTypeEnum.SCHEDULED_EXECUTE_ACTION_STEP;
+import static org.jrba.rulesengine.types.rulesteptype.RuleStepTypeEnum.SCHEDULED_SELECT_TIME_STEP;
 import static org.jrba.utils.mapper.FactsMapper.mapToRuleSetFacts;
 import static org.jrba.utils.rules.RuleSetSelector.selectRuleSetIndex;
 

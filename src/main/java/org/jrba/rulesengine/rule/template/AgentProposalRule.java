@@ -12,10 +12,10 @@ import static org.jrba.rulesengine.constants.MVELParameterConstants.ACCEPT_MESSA
 import static org.jrba.rulesengine.constants.MVELParameterConstants.FACTS;
 import static org.jrba.rulesengine.constants.MVELParameterConstants.REJECT_MESSAGE;
 import static org.jrba.rulesengine.constants.RuleTypeConstants.DEFAULT_PROPOSAL_RULE;
-import static org.jrba.rulesengine.enums.rulesteptype.RuleStepTypeEnum.PROPOSAL_CREATE_STEP;
-import static org.jrba.rulesengine.enums.rulesteptype.RuleStepTypeEnum.PROPOSAL_HANDLE_ACCEPT_STEP;
-import static org.jrba.rulesengine.enums.rulesteptype.RuleStepTypeEnum.PROPOSAL_HANDLE_REJECT_STEP;
-import static org.jrba.rulesengine.enums.ruletype.AgentRuleTypeEnum.PROPOSAL;
+import static org.jrba.rulesengine.types.rulesteptype.RuleStepTypeEnum.PROPOSAL_CREATE_STEP;
+import static org.jrba.rulesengine.types.rulesteptype.RuleStepTypeEnum.PROPOSAL_HANDLE_ACCEPT_STEP;
+import static org.jrba.rulesengine.types.rulesteptype.RuleStepTypeEnum.PROPOSAL_HANDLE_REJECT_STEP;
+import static org.jrba.rulesengine.types.ruletype.AgentRuleTypeEnum.PROPOSAL;
 
 import java.io.Serializable;
 import java.util.ArrayList;

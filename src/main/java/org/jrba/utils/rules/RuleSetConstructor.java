@@ -1,16 +1,16 @@
 package org.jrba.utils.rules;
 
 import static java.util.Objects.nonNull;
-import static org.jrba.rulesengine.enums.ruletype.AgentRuleTypeEnum.CFP;
-import static org.jrba.rulesengine.enums.ruletype.AgentRuleTypeEnum.COMBINED;
-import static org.jrba.rulesengine.enums.ruletype.AgentRuleTypeEnum.LISTENER;
-import static org.jrba.rulesengine.enums.ruletype.AgentRuleTypeEnum.LISTENER_SINGLE;
-import static org.jrba.rulesengine.enums.ruletype.AgentRuleTypeEnum.PERIODIC;
-import static org.jrba.rulesengine.enums.ruletype.AgentRuleTypeEnum.PROPOSAL;
-import static org.jrba.rulesengine.enums.ruletype.AgentRuleTypeEnum.REQUEST;
-import static org.jrba.rulesengine.enums.ruletype.AgentRuleTypeEnum.SCHEDULED;
-import static org.jrba.rulesengine.enums.ruletype.AgentRuleTypeEnum.SEARCH;
-import static org.jrba.rulesengine.enums.ruletype.AgentRuleTypeEnum.SUBSCRIPTION;
+import static org.jrba.rulesengine.types.ruletype.AgentRuleTypeEnum.CFP;
+import static org.jrba.rulesengine.types.ruletype.AgentRuleTypeEnum.COMBINED;
+import static org.jrba.rulesengine.types.ruletype.AgentRuleTypeEnum.LISTENER;
+import static org.jrba.rulesengine.types.ruletype.AgentRuleTypeEnum.LISTENER_SINGLE;
+import static org.jrba.rulesengine.types.ruletype.AgentRuleTypeEnum.PERIODIC;
+import static org.jrba.rulesengine.types.ruletype.AgentRuleTypeEnum.PROPOSAL;
+import static org.jrba.rulesengine.types.ruletype.AgentRuleTypeEnum.REQUEST;
+import static org.jrba.rulesengine.types.ruletype.AgentRuleTypeEnum.SCHEDULED;
+import static org.jrba.rulesengine.types.ruletype.AgentRuleTypeEnum.SEARCH;
+import static org.jrba.rulesengine.types.ruletype.AgentRuleTypeEnum.SUBSCRIPTION;
 import static org.jrba.rulesengine.rest.RuleSetRestApi.getAvailableRuleSets;
 import static org.slf4j.LoggerFactory.getLogger;
 
@@ -21,8 +21,8 @@ import java.util.List;
 import org.jrba.agentmodel.domain.node.AgentNode;
 import org.jrba.agentmodel.domain.props.AgentProps;
 import org.jrba.rulesengine.RulesController;
-import org.jrba.rulesengine.enums.ruletype.AgentRuleType;
-import org.jrba.rulesengine.enums.ruletype.AgentRuleTypeEnum;
+import org.jrba.rulesengine.types.ruletype.AgentRuleType;
+import org.jrba.rulesengine.types.ruletype.AgentRuleTypeEnum;
 import org.jrba.rulesengine.rule.AgentBasicRule;
 import org.jrba.rulesengine.rule.AgentRule;
 import org.jrba.rulesengine.rule.combined.AgentCombinedRule;

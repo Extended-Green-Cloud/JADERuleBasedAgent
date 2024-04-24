@@ -10,9 +10,9 @@ import static org.jrba.rulesengine.constants.FactTypeConstants.RECEIVED_MESSAGE;
 import static org.jrba.rulesengine.constants.MVELParameterConstants.FACTS;
 import static org.jrba.rulesengine.constants.MVELParameterConstants.MESSAGE;
 import static org.jrba.rulesengine.constants.RuleTypeConstants.DEFAULT_SINGLE_MESSAGE_LISTENER_RULE;
-import static org.jrba.rulesengine.enums.rulesteptype.RuleStepTypeEnum.SINGLE_MESSAGE_READER_CREATE_STEP;
-import static org.jrba.rulesengine.enums.rulesteptype.RuleStepTypeEnum.SINGLE_MESSAGE_READER_HANDLE_MESSAGE_STEP;
-import static org.jrba.rulesengine.enums.ruletype.AgentRuleTypeEnum.LISTENER_SINGLE;
+import static org.jrba.rulesengine.types.rulesteptype.RuleStepTypeEnum.SINGLE_MESSAGE_READER_CREATE_STEP;
+import static org.jrba.rulesengine.types.rulesteptype.RuleStepTypeEnum.SINGLE_MESSAGE_READER_HANDLE_MESSAGE_STEP;
+import static org.jrba.rulesengine.types.ruletype.AgentRuleTypeEnum.LISTENER_SINGLE;
 
 import java.io.Serializable;
 import java.util.ArrayList;

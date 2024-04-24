@@ -8,8 +8,8 @@ import static org.jrba.rulesengine.constants.FactTypeConstants.MESSAGE_TEMPLATE;
 import static org.jrba.rulesengine.constants.FactTypeConstants.RECEIVED_MESSAGE;
 import static org.jrba.rulesengine.constants.FactTypeConstants.RULE_STEP;
 import static org.jrba.rulesengine.constants.FactTypeConstants.RULE_TYPE;
-import static org.jrba.rulesengine.enums.rulesteptype.RuleStepTypeEnum.SINGLE_MESSAGE_READER_CREATE_STEP;
-import static org.jrba.rulesengine.enums.rulesteptype.RuleStepTypeEnum.SINGLE_MESSAGE_READER_HANDLE_MESSAGE_STEP;
+import static org.jrba.rulesengine.types.rulesteptype.RuleStepTypeEnum.SINGLE_MESSAGE_READER_CREATE_STEP;
+import static org.jrba.rulesengine.types.rulesteptype.RuleStepTypeEnum.SINGLE_MESSAGE_READER_HANDLE_MESSAGE_STEP;
 
 import org.jrba.rulesengine.RulesController;
 import org.jrba.rulesengine.ruleset.RuleSetFacts;

@@ -3,7 +3,7 @@ package org.jrba.rulesengine.rule.simple;
 import static java.util.Objects.isNull;
 import static org.jrba.rulesengine.constants.MVELParameterConstants.FACTS;
 import static org.jrba.rulesengine.constants.RuleTypeConstants.DEFAULT_CHAIN_RULE;
-import static org.jrba.rulesengine.enums.ruletype.AgentRuleTypeEnum.CHAIN;
+import static org.jrba.rulesengine.types.ruletype.AgentRuleTypeEnum.CHAIN;
 
 import java.io.Serializable;
 
@@ -11,7 +11,6 @@ import org.jeasy.rules.api.Facts;
 import org.jrba.agentmodel.domain.node.AgentNode;
 import org.jrba.agentmodel.domain.props.AgentProps;
 import org.jrba.rulesengine.RulesController;
-import org.jrba.rulesengine.enums.ruletype.AgentRuleType;
 import org.jrba.rulesengine.rest.domain.RuleRest;
 import org.jrba.rulesengine.rule.AgentBasicRule;
 import org.jrba.rulesengine.rule.AgentRule;
@@ -32,7 +31,7 @@ import lombok.Getter;
 public class AgentChainRule<T extends AgentProps, E extends AgentNode<T>> extends AgentBasicRule<T, E> implements
 		Serializable {
 
-	private RuleSet ruleSet;
+	private final RuleSet ruleSet;
 
 	/**
 	 * Copy constructor.

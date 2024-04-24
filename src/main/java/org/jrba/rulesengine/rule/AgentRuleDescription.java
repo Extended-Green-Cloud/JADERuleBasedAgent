@@ -1,6 +1,6 @@
 package org.jrba.rulesengine.rule;
 
-import org.jrba.rulesengine.enums.rulesteptype.RuleStepType;
+import org.jrba.rulesengine.types.rulesteptype.RuleStepType;
 
 /**
  * Class storing common properties which describe a given rule

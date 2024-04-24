@@ -14,8 +14,8 @@ import static org.jrba.rulesengine.constants.MVELParameterConstants.FACTS;
 import static org.jrba.rulesengine.constants.MVELParameterConstants.LOGGER;
 import static org.jrba.rulesengine.constants.MVELParameterConstants.RULES_CONTROLLER;
 import static org.jrba.rulesengine.constants.RuleTypeConstants.BASIC_RULE;
-import static org.jrba.rulesengine.enums.rulesteptype.RuleStepTypeEnum.REQUEST_CREATE_STEP;
-import static org.jrba.rulesengine.enums.ruletype.AgentRuleTypeEnum.BASIC;
+import static org.jrba.rulesengine.types.rulesteptype.RuleStepTypeEnum.REQUEST_CREATE_STEP;
+import static org.jrba.rulesengine.types.ruletype.AgentRuleTypeEnum.BASIC;
 import static org.jrba.rulesengine.mvel.MVELRuleMapper.getRuleForType;
 import static org.jrba.rulesengine.rule.CommonRuleAssertions.verifyDefaultRuleRestFields;
 import static org.jrba.rulesengine.rule.CommonRuleAssertions.verifyDefaultRulesControllerConnection;
@@ -134,8 +134,7 @@ class AgentBasicRuleUnitTest {
 
 		final AgentRule rule1 = getRuleForType(prepareBehaviourRuleRest(), null);
 		final AgentRule rule2 = getRuleForType(prepareRequestRuleRest(), null);
-		final List<AgentRule> stepRules = List.of(rule1, rule2);
-		testRule.stepRules = stepRules;
+		testRule.stepRules = List.of(rule1, rule2);
 
 		final AgentBasicRule<?, ?> testRuleCopy = (AgentBasicRule<?, ?>) testRule.copy();
 

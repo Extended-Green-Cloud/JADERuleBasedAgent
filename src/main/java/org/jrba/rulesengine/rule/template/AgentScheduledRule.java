@@ -6,9 +6,9 @@ import static java.util.Objects.nonNull;
 import static org.jrba.rulesengine.constants.FactTypeConstants.TRIGGER_TIME;
 import static org.jrba.rulesengine.constants.MVELParameterConstants.FACTS;
 import static org.jrba.rulesengine.constants.RuleTypeConstants.DEFAULT_SCHEDULE_RULE;
-import static org.jrba.rulesengine.enums.rulesteptype.RuleStepTypeEnum.SCHEDULED_EXECUTE_ACTION_STEP;
-import static org.jrba.rulesengine.enums.rulesteptype.RuleStepTypeEnum.SCHEDULED_SELECT_TIME_STEP;
-import static org.jrba.rulesengine.enums.ruletype.AgentRuleTypeEnum.SCHEDULED;
+import static org.jrba.rulesengine.types.rulesteptype.RuleStepTypeEnum.SCHEDULED_EXECUTE_ACTION_STEP;
+import static org.jrba.rulesengine.types.rulesteptype.RuleStepTypeEnum.SCHEDULED_SELECT_TIME_STEP;
+import static org.jrba.rulesengine.types.ruletype.AgentRuleTypeEnum.SCHEDULED;
 
 import java.io.Serializable;
 import java.time.Instant;

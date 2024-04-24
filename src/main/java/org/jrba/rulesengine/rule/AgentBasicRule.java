@@ -10,7 +10,7 @@ import static org.jrba.rulesengine.constants.MVELParameterConstants.AGENT_PROPS;
 import static org.jrba.rulesengine.constants.MVELParameterConstants.FACTS;
 import static org.jrba.rulesengine.constants.MVELParameterConstants.LOGGER;
 import static org.jrba.rulesengine.constants.MVELParameterConstants.RULES_CONTROLLER;
-import static org.jrba.rulesengine.enums.ruletype.AgentRuleTypeEnum.BASIC;
+import static org.jrba.rulesengine.types.ruletype.AgentRuleTypeEnum.BASIC;
 import static org.jrba.rulesengine.mvel.MVELObjectType.getObjectForType;
 import static org.slf4j.LoggerFactory.getLogger;
 

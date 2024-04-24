@@ -7,9 +7,9 @@ import static java.util.Objects.nonNull;
 import static org.jrba.rulesengine.constants.FactTypeConstants.TRIGGER_PERIOD;
 import static org.jrba.rulesengine.constants.MVELParameterConstants.FACTS;
 import static org.jrba.rulesengine.constants.RuleTypeConstants.DEFAULT_PERIODIC_RULE;
-import static org.jrba.rulesengine.enums.rulesteptype.RuleStepTypeEnum.PERIODIC_EXECUTE_ACTION_STEP;
-import static org.jrba.rulesengine.enums.rulesteptype.RuleStepTypeEnum.PERIODIC_SELECT_PERIOD_STEP;
-import static org.jrba.rulesengine.enums.ruletype.AgentRuleTypeEnum.PERIODIC;
+import static org.jrba.rulesengine.types.rulesteptype.RuleStepTypeEnum.PERIODIC_EXECUTE_ACTION_STEP;
+import static org.jrba.rulesengine.types.rulesteptype.RuleStepTypeEnum.PERIODIC_SELECT_PERIOD_STEP;
+import static org.jrba.rulesengine.types.ruletype.AgentRuleTypeEnum.PERIODIC;
 
 import java.io.Serializable;
 import java.util.ArrayList;

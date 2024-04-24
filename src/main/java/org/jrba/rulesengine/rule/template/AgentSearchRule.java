@@ -7,10 +7,10 @@ import static org.jrba.rulesengine.constants.FactTypeConstants.RESULT;
 import static org.jrba.rulesengine.constants.MVELParameterConstants.AGENTS;
 import static org.jrba.rulesengine.constants.MVELParameterConstants.FACTS;
 import static org.jrba.rulesengine.constants.RuleTypeConstants.DEFAULT_SEARCH_RULE;
-import static org.jrba.rulesengine.enums.rulesteptype.RuleStepTypeEnum.SEARCH_AGENTS_STEP;
-import static org.jrba.rulesengine.enums.rulesteptype.RuleStepTypeEnum.SEARCH_HANDLE_NO_RESULTS_STEP;
-import static org.jrba.rulesengine.enums.rulesteptype.RuleStepTypeEnum.SEARCH_HANDLE_RESULTS_STEP;
-import static org.jrba.rulesengine.enums.ruletype.AgentRuleTypeEnum.SEARCH;
+import static org.jrba.rulesengine.types.rulesteptype.RuleStepTypeEnum.SEARCH_AGENTS_STEP;
+import static org.jrba.rulesengine.types.rulesteptype.RuleStepTypeEnum.SEARCH_HANDLE_NO_RESULTS_STEP;
+import static org.jrba.rulesengine.types.rulesteptype.RuleStepTypeEnum.SEARCH_HANDLE_RESULTS_STEP;
+import static org.jrba.rulesengine.types.ruletype.AgentRuleTypeEnum.SEARCH;
 
 import java.io.Serializable;
 import java.util.ArrayList;

@@ -1,4 +1,4 @@
-package org.jrba.rulesengine.enums.rulesteptype;
+package org.jrba.rulesengine.types.rulesteptype;
 
 /**
  * Interface that is used while defining rule step types

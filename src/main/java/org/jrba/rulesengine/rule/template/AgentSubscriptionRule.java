@@ -12,9 +12,9 @@ import static org.jrba.rulesengine.constants.MVELParameterConstants.ADDED_AGENTS
 import static org.jrba.rulesengine.constants.MVELParameterConstants.FACTS;
 import static org.jrba.rulesengine.constants.MVELParameterConstants.REMOVED_AGENTS;
 import static org.jrba.rulesengine.constants.RuleTypeConstants.DEFAULT_SUBSCRIPTION_RULE;
-import static org.jrba.rulesengine.enums.rulesteptype.RuleStepTypeEnum.SUBSCRIPTION_CREATE_STEP;
-import static org.jrba.rulesengine.enums.rulesteptype.RuleStepTypeEnum.SUBSCRIPTION_HANDLE_AGENTS_RESPONSE_STEP;
-import static org.jrba.rulesengine.enums.ruletype.AgentRuleTypeEnum.SUBSCRIPTION;
+import static org.jrba.rulesengine.types.rulesteptype.RuleStepTypeEnum.SUBSCRIPTION_CREATE_STEP;
+import static org.jrba.rulesengine.types.rulesteptype.RuleStepTypeEnum.SUBSCRIPTION_HANDLE_AGENTS_RESPONSE_STEP;
+import static org.jrba.rulesengine.types.ruletype.AgentRuleTypeEnum.SUBSCRIPTION;
 
 import java.io.Serializable;
 import java.util.ArrayList;

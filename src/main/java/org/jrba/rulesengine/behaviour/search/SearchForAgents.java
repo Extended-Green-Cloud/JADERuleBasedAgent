@@ -4,9 +4,9 @@ import static org.jrba.utils.mapper.FactsMapper.mapToRuleSetFacts;
 import static org.jrba.rulesengine.constants.FactTypeConstants.RESULT;
 import static org.jrba.rulesengine.constants.FactTypeConstants.RULE_STEP;
 import static org.jrba.rulesengine.constants.FactTypeConstants.RULE_TYPE;
-import static org.jrba.rulesengine.enums.rulesteptype.RuleStepTypeEnum.SEARCH_AGENTS_STEP;
-import static org.jrba.rulesengine.enums.rulesteptype.RuleStepTypeEnum.SEARCH_HANDLE_NO_RESULTS_STEP;
-import static org.jrba.rulesengine.enums.rulesteptype.RuleStepTypeEnum.SEARCH_HANDLE_RESULTS_STEP;
+import static org.jrba.rulesengine.types.rulesteptype.RuleStepTypeEnum.SEARCH_AGENTS_STEP;
+import static org.jrba.rulesengine.types.rulesteptype.RuleStepTypeEnum.SEARCH_HANDLE_NO_RESULTS_STEP;
+import static org.jrba.rulesengine.types.rulesteptype.RuleStepTypeEnum.SEARCH_HANDLE_RESULTS_STEP;
 
 import java.util.Set;
 

@@ -1,4 +1,4 @@
-package org.jrba.rulesengine.enums.ruletype;
+package org.jrba.rulesengine.types.ruletype;
 
 /**
  * Interface that is used while defining rule types

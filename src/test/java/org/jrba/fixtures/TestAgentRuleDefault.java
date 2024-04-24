@@ -4,9 +4,7 @@ import static org.jrba.agentmodel.types.AgentTypeEnum.BASIC;
 
 import org.jeasy.rules.api.Facts;
 import org.jeasy.rules.api.Rule;
-import org.jrba.rulesengine.enums.rulesteptype.RuleStepType;
-import org.jrba.rulesengine.enums.ruletype.AgentRuleType;
-import org.jrba.rulesengine.enums.ruletype.AgentRuleTypeEnum;
+import org.jrba.rulesengine.types.ruletype.AgentRuleTypeEnum;
 import org.jrba.rulesengine.rule.AgentRule;
 
 public class TestAgentRuleDefault implements AgentRule {
@@ -47,7 +45,7 @@ public class TestAgentRuleDefault implements AgentRule {
 	}
 
 	@Override
-	public void execute(final Facts facts) throws Exception {
+	public void execute(final Facts facts) {
 
 	}
 
