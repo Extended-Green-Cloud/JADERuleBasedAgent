@@ -10,7 +10,7 @@ import static org.jrba.rulesengine.constants.MVELParameterConstants.AGENT_PROPS;
 import static org.jrba.rulesengine.constants.MVELParameterConstants.FACTS;
 import static org.jrba.rulesengine.constants.MVELParameterConstants.LOGGER;
 import static org.jrba.rulesengine.constants.MVELParameterConstants.RULES_CONTROLLER;
-import static org.jrba.rulesengine.enums.ruletype.AgentRuleTypeEnum.BASIC;
+import static org.jrba.rulesengine.types.ruletype.AgentRuleTypeEnum.BASIC;
 import static org.jrba.rulesengine.mvel.MVELObjectType.getObjectForType;
 import static org.slf4j.LoggerFactory.getLogger;
 
@@ -34,6 +34,7 @@ import org.slf4j.Logger;
 import jade.core.Agent;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 /**
  * Abstract class defining structure of a rule, executed within an agent's behaviour.
@@ -43,6 +44,7 @@ import lombok.Getter;
  */
 @Getter
 @EqualsAndHashCode(callSuper = true)
+@NoArgsConstructor
 @SuppressWarnings("unchecked")
 public class AgentBasicRule<T extends AgentProps, E extends AgentNode<T>> extends BasicRule
 		implements AgentRule, Serializable {

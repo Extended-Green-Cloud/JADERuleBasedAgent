@@ -17,13 +17,13 @@ import static org.jrba.rulesengine.constants.MVELParameterConstants.FACTS;
 import static org.jrba.rulesengine.constants.MVELParameterConstants.NEW_PROPOSAL;
 import static org.jrba.rulesengine.constants.MVELParameterConstants.PROPOSAL_TO_REJECT;
 import static org.jrba.rulesengine.constants.RuleTypeConstants.DEFAULT_CFP_RULE;
-import static org.jrba.rulesengine.enums.rulesteptype.RuleStepTypeEnum.CFP_COMPARE_MESSAGES_STEP;
-import static org.jrba.rulesengine.enums.rulesteptype.RuleStepTypeEnum.CFP_CREATE_STEP;
-import static org.jrba.rulesengine.enums.rulesteptype.RuleStepTypeEnum.CFP_HANDLE_NO_AVAILABLE_AGENTS_STEP;
-import static org.jrba.rulesengine.enums.rulesteptype.RuleStepTypeEnum.CFP_HANDLE_NO_RESPONSES_STEP;
-import static org.jrba.rulesengine.enums.rulesteptype.RuleStepTypeEnum.CFP_HANDLE_REJECT_PROPOSAL_STEP;
-import static org.jrba.rulesengine.enums.rulesteptype.RuleStepTypeEnum.CFP_HANDLE_SELECTED_PROPOSAL_STEP;
-import static org.jrba.rulesengine.enums.ruletype.AgentRuleTypeEnum.CFP;
+import static org.jrba.rulesengine.types.rulesteptype.RuleStepTypeEnum.CFP_COMPARE_MESSAGES_STEP;
+import static org.jrba.rulesengine.types.rulesteptype.RuleStepTypeEnum.CFP_CREATE_STEP;
+import static org.jrba.rulesengine.types.rulesteptype.RuleStepTypeEnum.CFP_HANDLE_NO_AVAILABLE_AGENTS_STEP;
+import static org.jrba.rulesengine.types.rulesteptype.RuleStepTypeEnum.CFP_HANDLE_NO_RESPONSES_STEP;
+import static org.jrba.rulesengine.types.rulesteptype.RuleStepTypeEnum.CFP_HANDLE_REJECT_PROPOSAL_STEP;
+import static org.jrba.rulesengine.types.rulesteptype.RuleStepTypeEnum.CFP_HANDLE_SELECTED_PROPOSAL_STEP;
+import static org.jrba.rulesengine.types.ruletype.AgentRuleTypeEnum.CFP;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -274,8 +274,7 @@ public class AgentCFPRule<T extends AgentProps, E extends AgentNode<T>> extends 
 			if (nonNull(AgentCFPRule.this.initialParameters)) {
 				AgentCFPRule.this.initialParameters.replace(FACTS, facts);
 			}
-
-			int result = 0;
+			int result;
 
 			if (isNull(expressionCompareProposals)) {
 				result = compareProposals(facts, bestProposal, newProposal);

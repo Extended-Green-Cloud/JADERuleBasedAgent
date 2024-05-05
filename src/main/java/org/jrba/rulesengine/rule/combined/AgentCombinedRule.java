@@ -2,9 +2,9 @@ package org.jrba.rulesengine.rule.combined;
 
 import static java.util.Collections.singletonList;
 import static org.jrba.rulesengine.constants.RuleTypeConstants.DEFAULT_COMBINED_RULE;
-import static org.jrba.rulesengine.enums.ruletype.AgentRuleTypeEnum.BASIC;
-import static org.jrba.rulesengine.enums.ruletype.AgentRuleTypeEnum.COMBINED;
 import static org.jrba.rulesengine.mvel.MVELRuleMapper.getRuleForType;
+import static org.jrba.rulesengine.types.ruletype.AgentRuleTypeEnum.BASIC;
+import static org.jrba.rulesengine.types.ruletype.AgentRuleTypeEnum.COMBINED;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -18,13 +18,13 @@ import org.jeasy.rules.support.composite.UnitRuleGroup;
 import org.jrba.agentmodel.domain.node.AgentNode;
 import org.jrba.agentmodel.domain.props.AgentProps;
 import org.jrba.rulesengine.RulesController;
-import org.jrba.rulesengine.enums.rulecombinationtype.AgentCombinedRuleType;
 import org.jrba.rulesengine.rest.domain.CombinedRuleRest;
 import org.jrba.rulesengine.rule.AgentBasicRule;
 import org.jrba.rulesengine.rule.AgentRule;
 import org.jrba.rulesengine.rule.AgentRuleDescription;
 import org.jrba.rulesengine.ruleset.RuleSet;
 import org.jrba.rulesengine.ruleset.RuleSetFacts;
+import org.jrba.rulesengine.types.rulecombinationtype.AgentCombinedRuleType;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -81,6 +81,21 @@ public class AgentCombinedRule<T extends AgentProps, E extends AgentNode<T>> ext
 		this.combinationType = combinationType.getType();
 		this.ruleSet = null;
 		this.rulesToCombine = new ArrayList<>(constructRules());
+	}
+
+	/**
+	 * Constructor
+	 *
+	 * @param controller      rules controller connected to the agent
+	 * @param combinationType way in which agent rules are to be combined
+	 * @param rulesToCombine  list of nested rules
+	 */
+	protected AgentCombinedRule(final RulesController<T, E> controller, final AgentCombinedRuleType combinationType,
+			final List<AgentRule> rulesToCombine) {
+		super(controller);
+		this.combinationType = combinationType.getType();
+		this.ruleSet = null;
+		this.rulesToCombine = new ArrayList<>(rulesToCombine);
 	}
 
 	/**
@@ -205,7 +220,7 @@ public class AgentCombinedRule<T extends AgentProps, E extends AgentNode<T>> ext
 			if (preEvaluated.test((RuleSetFacts) facts)) {
 				preExecute.accept((RuleSetFacts) facts);
 			}
-			return preEvaluated.test((RuleSetFacts) facts) && AgentCombinedRule.this.evaluate(facts);
+			return preEvaluated.test((RuleSetFacts) facts) && super.evaluate(facts);
 		}
 
 		@Override
@@ -266,7 +281,7 @@ public class AgentCombinedRule<T extends AgentProps, E extends AgentNode<T>> ext
 		public boolean evaluate(final Facts facts) {
 			if (preEvaluated.test((RuleSetFacts) facts)) {
 				preExecute.accept((RuleSetFacts) facts);
-				return AgentCombinedRule.this.evaluate(facts);
+				return super.evaluate(facts);
 			}
 			return false;
 		}

@@ -13,10 +13,10 @@ import static org.jrba.rulesengine.constants.FactTypeConstants.RULE_STEP;
 import static org.jrba.rulesengine.constants.FactTypeConstants.RULE_TYPE;
 import static org.jrba.rulesengine.constants.MVELParameterConstants.FACTS;
 import static org.jrba.rulesengine.constants.RuleTypeConstants.DEFAULT_MESSAGE_LISTENER_RULE;
-import static org.jrba.rulesengine.enums.rulesteptype.RuleStepTypeEnum.MESSAGE_READER_PROCESS_CONTENT_STEP;
-import static org.jrba.rulesengine.enums.rulesteptype.RuleStepTypeEnum.MESSAGE_READER_READ_CONTENT_STEP;
-import static org.jrba.rulesengine.enums.rulesteptype.RuleStepTypeEnum.MESSAGE_READER_READ_STEP;
-import static org.jrba.rulesengine.enums.ruletype.AgentRuleTypeEnum.LISTENER;
+import static org.jrba.rulesengine.types.rulesteptype.RuleStepTypeEnum.MESSAGE_READER_PROCESS_CONTENT_STEP;
+import static org.jrba.rulesengine.types.rulesteptype.RuleStepTypeEnum.MESSAGE_READER_READ_CONTENT_STEP;
+import static org.jrba.rulesengine.types.rulesteptype.RuleStepTypeEnum.MESSAGE_READER_READ_STEP;
+import static org.jrba.rulesengine.types.ruletype.AgentRuleTypeEnum.LISTENER;
 import static org.jrba.utils.mapper.FactsMapper.mapToRuleSetFacts;
 import static org.jrba.utils.messages.MessageReader.readMessageContent;
 

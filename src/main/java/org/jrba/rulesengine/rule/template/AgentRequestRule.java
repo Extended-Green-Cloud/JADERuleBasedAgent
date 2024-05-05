@@ -17,12 +17,12 @@ import static org.jrba.rulesengine.constants.MVELParameterConstants.INFORM;
 import static org.jrba.rulesengine.constants.MVELParameterConstants.INFORM_RESULTS;
 import static org.jrba.rulesengine.constants.MVELParameterConstants.REFUSE;
 import static org.jrba.rulesengine.constants.RuleTypeConstants.DEFAULT_REQUEST_RULE;
-import static org.jrba.rulesengine.enums.rulesteptype.RuleStepTypeEnum.REQUEST_CREATE_STEP;
-import static org.jrba.rulesengine.enums.rulesteptype.RuleStepTypeEnum.REQUEST_HANDLE_ALL_RESULTS_STEP;
-import static org.jrba.rulesengine.enums.rulesteptype.RuleStepTypeEnum.REQUEST_HANDLE_FAILURE_STEP;
-import static org.jrba.rulesengine.enums.rulesteptype.RuleStepTypeEnum.REQUEST_HANDLE_INFORM_STEP;
-import static org.jrba.rulesengine.enums.rulesteptype.RuleStepTypeEnum.REQUEST_HANDLE_REFUSE_STEP;
-import static org.jrba.rulesengine.enums.ruletype.AgentRuleTypeEnum.REQUEST;
+import static org.jrba.rulesengine.types.rulesteptype.RuleStepTypeEnum.REQUEST_CREATE_STEP;
+import static org.jrba.rulesengine.types.rulesteptype.RuleStepTypeEnum.REQUEST_HANDLE_ALL_RESULTS_STEP;
+import static org.jrba.rulesengine.types.rulesteptype.RuleStepTypeEnum.REQUEST_HANDLE_FAILURE_STEP;
+import static org.jrba.rulesengine.types.rulesteptype.RuleStepTypeEnum.REQUEST_HANDLE_INFORM_STEP;
+import static org.jrba.rulesengine.types.rulesteptype.RuleStepTypeEnum.REQUEST_HANDLE_REFUSE_STEP;
+import static org.jrba.rulesengine.types.ruletype.AgentRuleTypeEnum.REQUEST;
 
 import java.io.Serializable;
 import java.util.ArrayList;

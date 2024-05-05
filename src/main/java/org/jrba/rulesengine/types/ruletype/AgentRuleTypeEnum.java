@@ -1,4 +1,4 @@
-package org.jrba.rulesengine.enums.ruletype;
+package org.jrba.rulesengine.types.ruletype;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

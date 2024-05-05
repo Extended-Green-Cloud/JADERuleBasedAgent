@@ -1,4 +1,4 @@
-package org.jrba.rulesengine.enums.rulecombinationtype;
+package org.jrba.rulesengine.types.rulecombinationtype;
 
 /**
  * Interface that is used while defining combined rule types

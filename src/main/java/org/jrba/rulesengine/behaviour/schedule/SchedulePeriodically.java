@@ -3,8 +3,8 @@ package org.jrba.rulesengine.behaviour.schedule;
 import static org.jrba.rulesengine.constants.FactTypeConstants.RULE_STEP;
 import static org.jrba.rulesengine.constants.FactTypeConstants.RULE_TYPE;
 import static org.jrba.rulesengine.constants.FactTypeConstants.TRIGGER_PERIOD;
-import static org.jrba.rulesengine.enums.rulesteptype.RuleStepTypeEnum.PERIODIC_EXECUTE_ACTION_STEP;
-import static org.jrba.rulesengine.enums.rulesteptype.RuleStepTypeEnum.PERIODIC_SELECT_PERIOD_STEP;
+import static org.jrba.rulesengine.types.rulesteptype.RuleStepTypeEnum.PERIODIC_EXECUTE_ACTION_STEP;
+import static org.jrba.rulesengine.types.rulesteptype.RuleStepTypeEnum.PERIODIC_SELECT_PERIOD_STEP;
 import static org.jrba.utils.mapper.FactsMapper.mapToRuleSetFacts;
 
 import org.jrba.rulesengine.RulesController;

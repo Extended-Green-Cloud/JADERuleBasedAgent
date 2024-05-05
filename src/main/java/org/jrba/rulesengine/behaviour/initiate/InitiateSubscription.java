@@ -8,8 +8,8 @@ import static org.jrba.rulesengine.constants.FactTypeConstants.RULE_TYPE;
 import static org.jrba.rulesengine.constants.FactTypeConstants.SUBSCRIPTION_ADDED_AGENTS;
 import static org.jrba.rulesengine.constants.FactTypeConstants.SUBSCRIPTION_CREATE_MESSAGE;
 import static org.jrba.rulesengine.constants.FactTypeConstants.SUBSCRIPTION_REMOVED_AGENTS;
-import static org.jrba.rulesengine.enums.rulesteptype.RuleStepTypeEnum.SUBSCRIPTION_CREATE_STEP;
-import static org.jrba.rulesengine.enums.rulesteptype.RuleStepTypeEnum.SUBSCRIPTION_HANDLE_AGENTS_RESPONSE_STEP;
+import static org.jrba.rulesengine.types.rulesteptype.RuleStepTypeEnum.SUBSCRIPTION_CREATE_STEP;
+import static org.jrba.rulesengine.types.rulesteptype.RuleStepTypeEnum.SUBSCRIPTION_HANDLE_AGENTS_RESPONSE_STEP;
 import static org.jrba.utils.mapper.FactsMapper.mapToRuleSetFacts;
 import static org.jrba.utils.yellowpages.YellowPagesRegister.decodeSubscription;
 

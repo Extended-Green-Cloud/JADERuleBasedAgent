@@ -6,9 +6,9 @@ import static org.jrba.rulesengine.constants.FactTypeConstants.PROPOSAL_CREATE_M
 import static org.jrba.rulesengine.constants.FactTypeConstants.PROPOSAL_REJECT_MESSAGE;
 import static org.jrba.rulesengine.constants.FactTypeConstants.RULE_STEP;
 import static org.jrba.rulesengine.constants.FactTypeConstants.RULE_TYPE;
-import static org.jrba.rulesengine.enums.rulesteptype.RuleStepTypeEnum.PROPOSAL_CREATE_STEP;
-import static org.jrba.rulesengine.enums.rulesteptype.RuleStepTypeEnum.PROPOSAL_HANDLE_ACCEPT_STEP;
-import static org.jrba.rulesengine.enums.rulesteptype.RuleStepTypeEnum.PROPOSAL_HANDLE_REJECT_STEP;
+import static org.jrba.rulesengine.types.rulesteptype.RuleStepTypeEnum.PROPOSAL_CREATE_STEP;
+import static org.jrba.rulesengine.types.rulesteptype.RuleStepTypeEnum.PROPOSAL_HANDLE_ACCEPT_STEP;
+import static org.jrba.rulesengine.types.rulesteptype.RuleStepTypeEnum.PROPOSAL_HANDLE_REJECT_STEP;
 
 import org.jrba.rulesengine.RulesController;
 import org.jrba.rulesengine.ruleset.RuleSetFacts;

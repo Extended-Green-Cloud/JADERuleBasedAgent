@@ -10,14 +10,13 @@ import static org.jrba.fixtures.TestRulesFixtures.prepareRuleSetWithDifferentTyp
 import static org.jrba.fixtures.TestRulesFixtures.prepareRulesController;
 import static org.jrba.rulesengine.constants.FactTypeConstants.RULE_STEP;
 import static org.jrba.rulesengine.constants.FactTypeConstants.RULE_TYPE;
-import static org.jrba.rulesengine.enums.rulesteptype.RuleStepTypeEnum.CFP_CREATE_STEP;
 import static org.jrba.rulesengine.mvel.MVELRuleMapper.getRuleForType;
+import static org.jrba.rulesengine.types.rulesteptype.RuleStepTypeEnum.CFP_CREATE_STEP;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.mockito.ArgumentMatchers.argThat;
 import static org.mockito.ArgumentMatchers.assertArg;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
@@ -31,16 +30,13 @@ import java.util.function.Consumer;
 import org.jeasy.rules.api.Rules;
 import org.jeasy.rules.api.RulesEngine;
 import org.jeasy.rules.core.DefaultRulesEngine;
-import org.jeasy.rules.support.composite.ActivationRuleGroup;
 import org.jrba.rulesengine.RulesController;
 import org.jrba.rulesengine.rest.domain.RuleSetRest;
 import org.jrba.rulesengine.rule.AgentBasicRule;
 import org.jrba.rulesengine.rule.AgentRule;
-import org.jrba.rulesengine.rule.combined.AgentCombinedRule;
 import org.jrba.rulesengine.rule.simple.AgentBehaviourRule;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.mockito.ArgumentMatcher;
 
 public class RuleSetUnitTest {
 
@@ -136,12 +132,12 @@ public class RuleSetUnitTest {
 
 		testRuleSet.fireRuleSet(testFacts);
 
-		final Consumer<Rules> matchRules = (rules) -> {
-			assertThatCollection(stream(rules.spliterator(), false).toList())
-					.hasSize(3)
-					.anySatisfy((rule) -> assertInstanceOf(AgentBehaviourRule.class, rule))
-					.anySatisfy((rule) -> assertEquals(CFP_CREATE_STEP.getType(), ((AgentRule) rule).getStepType()));
-		};
+		final Consumer<Rules> matchRules = (rules) ->
+				assertThatCollection(stream(rules.spliterator(), false).toList())
+						.hasSize(3)
+						.anySatisfy((rule) -> assertInstanceOf(AgentBehaviourRule.class, rule))
+						.anySatisfy(
+								(rule) -> assertEquals(CFP_CREATE_STEP.getType(), ((AgentRule) rule).getStepType()));
 
 		verify(testEngine).fire(assertArg(matchRules), eq(testFacts));
 	}

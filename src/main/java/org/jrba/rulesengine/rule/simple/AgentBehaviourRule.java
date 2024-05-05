@@ -4,7 +4,7 @@ import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 import static org.jrba.rulesengine.constants.MVELParameterConstants.FACTS;
 import static org.jrba.rulesengine.constants.RuleTypeConstants.INITIALIZE_BEHAVIOURS_RULE;
-import static org.jrba.rulesengine.enums.ruletype.AgentRuleTypeEnum.BEHAVIOUR;
+import static org.jrba.rulesengine.types.ruletype.AgentRuleTypeEnum.BEHAVIOUR;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -16,12 +16,10 @@ import java.util.stream.Collectors;
 import org.jrba.agentmodel.domain.node.AgentNode;
 import org.jrba.agentmodel.domain.props.AgentProps;
 import org.jrba.rulesengine.RulesController;
-import org.jrba.rulesengine.enums.ruletype.AgentRuleType;
 import org.jrba.rulesengine.rest.domain.BehaviourRuleRest;
 import org.jrba.rulesengine.rule.AgentBasicRule;
 import org.jrba.rulesengine.rule.AgentRule;
 import org.jrba.rulesengine.rule.AgentRuleDescription;
-import org.jrba.rulesengine.ruleset.RuleSet;
 import org.jrba.rulesengine.ruleset.RuleSetFacts;
 import org.mvel2.MVEL;
 

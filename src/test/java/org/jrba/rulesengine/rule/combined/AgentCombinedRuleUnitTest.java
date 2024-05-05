@@ -2,7 +2,6 @@ package org.jrba.rulesengine.rule.combined;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatCollection;
-import static org.jrba.fixtures.TestRulesFixtures.prepareBehaviourRuleRest;
 import static org.jrba.fixtures.TestRulesFixtures.prepareCombinedRuleRest;
 import static org.jrba.fixtures.TestRulesFixtures.prepareRuleSet;
 import static org.jrba.fixtures.TestRulesFixtures.prepareRulesController;
@@ -13,23 +12,26 @@ import static org.jrba.rulesengine.constants.MVELParameterConstants.FACTS;
 import static org.jrba.rulesengine.constants.MVELParameterConstants.LOGGER;
 import static org.jrba.rulesengine.constants.MVELParameterConstants.RULES_CONTROLLER;
 import static org.jrba.rulesengine.constants.RuleTypeConstants.DEFAULT_COMBINED_RULE;
-import static org.jrba.rulesengine.enums.rulecombinationtype.AgentCombinedRuleTypeEnum.EXECUTE_ALL;
-import static org.jrba.rulesengine.enums.rulecombinationtype.AgentCombinedRuleTypeEnum.EXECUTE_FIRST;
-import static org.jrba.rulesengine.enums.rulesteptype.RuleStepTypeEnum.REQUEST_CREATE_STEP;
-import static org.jrba.rulesengine.enums.ruletype.AgentRuleTypeEnum.BASIC;
-import static org.jrba.rulesengine.enums.ruletype.AgentRuleTypeEnum.COMBINED;
 import static org.jrba.rulesengine.rule.CommonRuleAssertions.verifyDefaultRuleRestFields;
 import static org.jrba.rulesengine.rule.CommonRuleAssertions.verifyDefaultRulesControllerConnection;
 import static org.jrba.rulesengine.rule.CommonRuleAssertions.verifyRuleForRulesControllerFields;
+import static org.jrba.rulesengine.types.rulecombinationtype.AgentCombinedRuleTypeEnum.EXECUTE_ALL;
+import static org.jrba.rulesengine.types.rulecombinationtype.AgentCombinedRuleTypeEnum.EXECUTE_FIRST;
+import static org.jrba.rulesengine.types.rulesteptype.RuleStepTypeEnum.REQUEST_CREATE_STEP;
+import static org.jrba.rulesengine.types.ruletype.AgentRuleTypeEnum.BASIC;
+import static org.jrba.rulesengine.types.ruletype.AgentRuleTypeEnum.COMBINED;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import java.util.HashMap;
 import java.util.List;
@@ -39,14 +41,13 @@ import org.jrba.fixtures.TestAbstractAgentCustom;
 import org.jrba.fixtures.TestAgentNodeDefault;
 import org.jrba.fixtures.TestAgentPropsDefault;
 import org.jrba.rulesengine.RulesController;
-import org.jrba.rulesengine.enums.ruletype.AgentRuleTypeEnum;
-import org.jrba.rulesengine.rest.domain.BehaviourRuleRest;
 import org.jrba.rulesengine.rest.domain.CombinedRuleRest;
 import org.jrba.rulesengine.rule.AgentBasicRule;
 import org.jrba.rulesengine.rule.AgentRule;
 import org.jrba.rulesengine.rule.simple.AgentBehaviourRule;
 import org.jrba.rulesengine.ruleset.RuleSet;
 import org.jrba.rulesengine.ruleset.RuleSetFacts;
+import org.jrba.rulesengine.types.ruletype.AgentRuleTypeEnum;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -215,7 +216,7 @@ class AgentCombinedRuleUnitTest {
 		final RuleSetFacts facts = new RuleSetFacts(0);
 
 		agentExecuteFirstCombinedRule.evaluateRule(facts);
-		verify(testRule, times(2)).evaluateRule(facts);
+		verify(testRule).evaluateRule(facts);
 		verify(testRule).executeRule(facts);
 	}
 
@@ -249,7 +250,7 @@ class AgentCombinedRuleUnitTest {
 		final RuleSetFacts facts = new RuleSetFacts(0);
 
 		agentExecuteFirstCombinedRule.evaluateRule(facts);
-		verify(testRule, times(3)).evaluateRule(facts);
+		verify(testRule, times(2)).evaluateRule(facts);
 		verify(testRule).executeRule(facts);
 	}
 
@@ -279,12 +280,16 @@ class AgentCombinedRuleUnitTest {
 	}
 
 	@Test
-	@DisplayName("Test getting nested rules.")
+	@DisplayName("Test evaluating rules.")
 	void testDefaultEvaluateRule() {
-		final RuleSet ruleSet = prepareRuleSet();
-		final CombinedRuleRest combinedRuleRest = prepareCombinedRuleRest();
-		final AgentCombinedRule<?, ?> testRule = new AgentCombinedRule<>(combinedRuleRest, ruleSet);
+		final AgentBasicRule<?, ?> mockNestedRule = mock(AgentBasicRule.class);
+		final RulesController<?, ?> testRulesController = prepareRulesController();
+		final AgentCombinedRule<?, ?> testRule = new AgentCombinedRule<>(testRulesController, EXECUTE_FIRST,
+				List.of(mockNestedRule));
+		when(mockNestedRule.evaluateRule(any())).thenReturn(true);
+		when(mockNestedRule.evaluate(any())).thenCallRealMethod();
 
-		assertTrue(testRule.evaluateRule(new RuleSetFacts(0)));
+		assertTrue(testRule.getRules().getFirst().evaluate(new RuleSetFacts(0)));
+		verify(mockNestedRule).evaluateRule(any());
 	}
 }

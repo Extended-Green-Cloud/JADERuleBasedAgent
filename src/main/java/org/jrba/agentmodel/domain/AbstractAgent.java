@@ -18,8 +18,6 @@ import org.jrba.rulesengine.ruleset.RuleSetFacts;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.google.common.annotations.VisibleForTesting;
-
 import jade.core.Agent;
 import jade.core.behaviours.Behaviour;
 import lombok.Getter;
@@ -52,7 +50,6 @@ public class AbstractAgent<T extends AgentNode<E>, E extends AgentProps> extends
 	/**
 	 * Abstract method used to validate if arguments of the given agent are correct
 	 */
-	@VisibleForTesting
 	protected void validateAgentArguments() {
 		if (isNull(properties)) {
 			logger.warn("Agent properties have not been set!");
@@ -64,7 +61,6 @@ public class AbstractAgent<T extends AgentNode<E>, E extends AgentProps> extends
 	 *
 	 * @param arguments arguments passed by the user
 	 */
-	@VisibleForTesting
 	protected void initializeAgent(final Object[] arguments) {
 		//TO BE OVERRIDDEN BY USER
 	}
@@ -74,7 +70,6 @@ public class AbstractAgent<T extends AgentNode<E>, E extends AgentProps> extends
 	 *
 	 * @return list of behaviours that are to be initially initiated by the Agent
 	 */
-	@VisibleForTesting
 	protected List<Behaviour> prepareStartingBehaviours() {
 		return emptyList();
 	}
@@ -83,7 +78,6 @@ public class AbstractAgent<T extends AgentNode<E>, E extends AgentProps> extends
 	 * Abstract method responsible for running starting behaviours,
 	 * By default
 	 */
-	@VisibleForTesting
 	protected void runStartingBehaviours() {
 		addBehaviour(new ListenForControllerObjects(this, prepareStartingBehaviours(), getObjectsNumber()));
 	}
@@ -91,7 +85,6 @@ public class AbstractAgent<T extends AgentNode<E>, E extends AgentProps> extends
 	/**
 	 * Abstract method responsible for running initial custom behaviours prepared only for selected rule set
 	 */
-	@VisibleForTesting
 	protected void runInitialBehavioursForRuleSet() {
 		final RuleSetFacts facts = new RuleSetFacts(rulesController.getLatestLongTermRuleSetIdx().get());
 		facts.put(RULE_TYPE, INITIALIZE_BEHAVIOURS_RULE);
@@ -151,7 +144,6 @@ public class AbstractAgent<T extends AgentNode<E>, E extends AgentProps> extends
 	}
 
 	@Override
-	@VisibleForTesting
 	protected void setup() {
 		final Object[] arguments = getArguments();
 
@@ -161,7 +153,6 @@ public class AbstractAgent<T extends AgentNode<E>, E extends AgentProps> extends
 	}
 
 	@Override
-	@VisibleForTesting
 	protected void takeDown() {
 		logger.info("I'm finished. Bye!");
 		super.takeDown();

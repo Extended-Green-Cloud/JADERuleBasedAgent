@@ -3,7 +3,7 @@ package org.jrba.rulesengine.rest.domain;
 import java.io.Serializable;
 import java.util.List;
 
-import org.jrba.rulesengine.enums.rulecombinationtype.AgentCombinedRuleType;
+import org.jrba.rulesengine.types.rulecombinationtype.AgentCombinedRuleType;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 

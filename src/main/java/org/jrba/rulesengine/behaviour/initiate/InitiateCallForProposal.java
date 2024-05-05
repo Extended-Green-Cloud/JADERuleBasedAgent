@@ -11,12 +11,12 @@ import static org.jrba.rulesengine.constants.FactTypeConstants.CFP_REJECT_MESSAG
 import static org.jrba.rulesengine.constants.FactTypeConstants.CFP_RESULT;
 import static org.jrba.rulesengine.constants.FactTypeConstants.RULE_STEP;
 import static org.jrba.rulesengine.constants.FactTypeConstants.RULE_TYPE;
-import static org.jrba.rulesengine.enums.rulesteptype.RuleStepTypeEnum.CFP_COMPARE_MESSAGES_STEP;
-import static org.jrba.rulesengine.enums.rulesteptype.RuleStepTypeEnum.CFP_CREATE_STEP;
-import static org.jrba.rulesengine.enums.rulesteptype.RuleStepTypeEnum.CFP_HANDLE_NO_AVAILABLE_AGENTS_STEP;
-import static org.jrba.rulesengine.enums.rulesteptype.RuleStepTypeEnum.CFP_HANDLE_NO_RESPONSES_STEP;
-import static org.jrba.rulesengine.enums.rulesteptype.RuleStepTypeEnum.CFP_HANDLE_REJECT_PROPOSAL_STEP;
-import static org.jrba.rulesengine.enums.rulesteptype.RuleStepTypeEnum.CFP_HANDLE_SELECTED_PROPOSAL_STEP;
+import static org.jrba.rulesengine.types.rulesteptype.RuleStepTypeEnum.CFP_COMPARE_MESSAGES_STEP;
+import static org.jrba.rulesengine.types.rulesteptype.RuleStepTypeEnum.CFP_CREATE_STEP;
+import static org.jrba.rulesengine.types.rulesteptype.RuleStepTypeEnum.CFP_HANDLE_NO_AVAILABLE_AGENTS_STEP;
+import static org.jrba.rulesengine.types.rulesteptype.RuleStepTypeEnum.CFP_HANDLE_NO_RESPONSES_STEP;
+import static org.jrba.rulesengine.types.rulesteptype.RuleStepTypeEnum.CFP_HANDLE_REJECT_PROPOSAL_STEP;
+import static org.jrba.rulesengine.types.rulesteptype.RuleStepTypeEnum.CFP_HANDLE_SELECTED_PROPOSAL_STEP;
 import static org.jrba.utils.messages.MessageReader.readForPerformative;
 
 import java.util.Vector;

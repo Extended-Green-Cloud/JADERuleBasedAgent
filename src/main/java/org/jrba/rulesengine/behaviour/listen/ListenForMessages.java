@@ -7,8 +7,8 @@ import static org.jrba.rulesengine.constants.FactTypeConstants.MESSAGES;
 import static org.jrba.rulesengine.constants.FactTypeConstants.RULE_SET_IDX;
 import static org.jrba.rulesengine.constants.FactTypeConstants.RULE_STEP;
 import static org.jrba.rulesengine.constants.FactTypeConstants.RULE_TYPE;
-import static org.jrba.rulesengine.enums.rulesteptype.RuleStepTypeEnum.MESSAGE_READER_READ_CONTENT_STEP;
-import static org.jrba.rulesengine.enums.rulesteptype.RuleStepTypeEnum.MESSAGE_READER_READ_STEP;
+import static org.jrba.rulesengine.types.rulesteptype.RuleStepTypeEnum.MESSAGE_READER_READ_CONTENT_STEP;
+import static org.jrba.rulesengine.types.rulesteptype.RuleStepTypeEnum.MESSAGE_READER_READ_STEP;
 import static org.jrba.utils.mapper.FactsMapper.mapToRuleSetFacts;
 
 import java.util.List;

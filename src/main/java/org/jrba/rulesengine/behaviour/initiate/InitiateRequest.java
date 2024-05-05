@@ -11,11 +11,11 @@ import static org.jrba.rulesengine.constants.FactTypeConstants.REQUEST_INFORM_RE
 import static org.jrba.rulesengine.constants.FactTypeConstants.REQUEST_REFUSE_MESSAGE;
 import static org.jrba.rulesengine.constants.FactTypeConstants.RULE_STEP;
 import static org.jrba.rulesengine.constants.FactTypeConstants.RULE_TYPE;
-import static org.jrba.rulesengine.enums.rulesteptype.RuleStepTypeEnum.REQUEST_CREATE_STEP;
-import static org.jrba.rulesengine.enums.rulesteptype.RuleStepTypeEnum.REQUEST_HANDLE_ALL_RESULTS_STEP;
-import static org.jrba.rulesengine.enums.rulesteptype.RuleStepTypeEnum.REQUEST_HANDLE_FAILURE_STEP;
-import static org.jrba.rulesengine.enums.rulesteptype.RuleStepTypeEnum.REQUEST_HANDLE_INFORM_STEP;
-import static org.jrba.rulesengine.enums.rulesteptype.RuleStepTypeEnum.REQUEST_HANDLE_REFUSE_STEP;
+import static org.jrba.rulesengine.types.rulesteptype.RuleStepTypeEnum.REQUEST_CREATE_STEP;
+import static org.jrba.rulesengine.types.rulesteptype.RuleStepTypeEnum.REQUEST_HANDLE_ALL_RESULTS_STEP;
+import static org.jrba.rulesengine.types.rulesteptype.RuleStepTypeEnum.REQUEST_HANDLE_FAILURE_STEP;
+import static org.jrba.rulesengine.types.rulesteptype.RuleStepTypeEnum.REQUEST_HANDLE_INFORM_STEP;
+import static org.jrba.rulesengine.types.rulesteptype.RuleStepTypeEnum.REQUEST_HANDLE_REFUSE_STEP;
 import static org.jrba.utils.messages.MessageReader.readForPerformative;
 
 import java.util.Vector;

@@ -1,21 +1,21 @@
 package org.jrba.fixtures;
 
 import static org.jrba.rulesengine.constants.RuleSetTypeConstants.DEFAULT_RULE_SET;
-import static org.jrba.rulesengine.enums.rulecombinationtype.AgentCombinedRuleTypeEnum.EXECUTE_FIRST;
-import static org.jrba.rulesengine.enums.rulesteptype.RuleStepTypeEnum.REQUEST_CREATE_STEP;
-import static org.jrba.rulesengine.enums.ruletype.AgentRuleTypeEnum.BASIC;
-import static org.jrba.rulesengine.enums.ruletype.AgentRuleTypeEnum.BEHAVIOUR;
-import static org.jrba.rulesengine.enums.ruletype.AgentRuleTypeEnum.CFP;
-import static org.jrba.rulesengine.enums.ruletype.AgentRuleTypeEnum.CHAIN;
-import static org.jrba.rulesengine.enums.ruletype.AgentRuleTypeEnum.COMBINED;
-import static org.jrba.rulesengine.enums.ruletype.AgentRuleTypeEnum.LISTENER;
-import static org.jrba.rulesengine.enums.ruletype.AgentRuleTypeEnum.LISTENER_SINGLE;
-import static org.jrba.rulesengine.enums.ruletype.AgentRuleTypeEnum.PERIODIC;
-import static org.jrba.rulesengine.enums.ruletype.AgentRuleTypeEnum.PROPOSAL;
-import static org.jrba.rulesengine.enums.ruletype.AgentRuleTypeEnum.REQUEST;
-import static org.jrba.rulesengine.enums.ruletype.AgentRuleTypeEnum.SCHEDULED;
-import static org.jrba.rulesengine.enums.ruletype.AgentRuleTypeEnum.SEARCH;
-import static org.jrba.rulesengine.enums.ruletype.AgentRuleTypeEnum.SUBSCRIPTION;
+import static org.jrba.rulesengine.types.rulecombinationtype.AgentCombinedRuleTypeEnum.EXECUTE_FIRST;
+import static org.jrba.rulesengine.types.rulesteptype.RuleStepTypeEnum.REQUEST_CREATE_STEP;
+import static org.jrba.rulesengine.types.ruletype.AgentRuleTypeEnum.BASIC;
+import static org.jrba.rulesengine.types.ruletype.AgentRuleTypeEnum.BEHAVIOUR;
+import static org.jrba.rulesengine.types.ruletype.AgentRuleTypeEnum.CFP;
+import static org.jrba.rulesengine.types.ruletype.AgentRuleTypeEnum.CHAIN;
+import static org.jrba.rulesengine.types.ruletype.AgentRuleTypeEnum.COMBINED;
+import static org.jrba.rulesengine.types.ruletype.AgentRuleTypeEnum.LISTENER;
+import static org.jrba.rulesengine.types.ruletype.AgentRuleTypeEnum.LISTENER_SINGLE;
+import static org.jrba.rulesengine.types.ruletype.AgentRuleTypeEnum.PERIODIC;
+import static org.jrba.rulesengine.types.ruletype.AgentRuleTypeEnum.PROPOSAL;
+import static org.jrba.rulesengine.types.ruletype.AgentRuleTypeEnum.REQUEST;
+import static org.jrba.rulesengine.types.ruletype.AgentRuleTypeEnum.SCHEDULED;
+import static org.jrba.rulesengine.types.ruletype.AgentRuleTypeEnum.SEARCH;
+import static org.jrba.rulesengine.types.ruletype.AgentRuleTypeEnum.SUBSCRIPTION;
 import static org.jrba.rulesengine.mvel.MVELObjectType.MAP;
 
 import java.util.List;
