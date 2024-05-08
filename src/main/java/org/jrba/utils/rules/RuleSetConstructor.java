@@ -1,6 +1,7 @@
 package org.jrba.utils.rules;
 
 import static java.util.Objects.nonNull;
+import static org.jrba.rulesengine.rest.RuleSetRestApi.getAvailableRuleSets;
 import static org.jrba.rulesengine.types.ruletype.AgentRuleTypeEnum.CFP;
 import static org.jrba.rulesengine.types.ruletype.AgentRuleTypeEnum.COMBINED;
 import static org.jrba.rulesengine.types.ruletype.AgentRuleTypeEnum.LISTENER;
@@ -11,22 +12,22 @@ import static org.jrba.rulesengine.types.ruletype.AgentRuleTypeEnum.REQUEST;
 import static org.jrba.rulesengine.types.ruletype.AgentRuleTypeEnum.SCHEDULED;
 import static org.jrba.rulesengine.types.ruletype.AgentRuleTypeEnum.SEARCH;
 import static org.jrba.rulesengine.types.ruletype.AgentRuleTypeEnum.SUBSCRIPTION;
-import static org.jrba.rulesengine.rest.RuleSetRestApi.getAvailableRuleSets;
 import static org.slf4j.LoggerFactory.getLogger;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.function.BiPredicate;
 
 import org.jrba.agentmodel.domain.node.AgentNode;
 import org.jrba.agentmodel.domain.props.AgentProps;
 import org.jrba.rulesengine.RulesController;
-import org.jrba.rulesengine.types.ruletype.AgentRuleType;
-import org.jrba.rulesengine.types.ruletype.AgentRuleTypeEnum;
 import org.jrba.rulesengine.rule.AgentBasicRule;
 import org.jrba.rulesengine.rule.AgentRule;
 import org.jrba.rulesengine.rule.combined.AgentCombinedRule;
 import org.jrba.rulesengine.ruleset.RuleSet;
+import org.jrba.rulesengine.types.ruletype.AgentRuleType;
+import org.jrba.rulesengine.types.ruletype.AgentRuleTypeEnum;
 import org.slf4j.Logger;
 
 /**
@@ -76,29 +77,31 @@ public class RuleSetConstructor {
 	public static RuleSet modifyRuleSetForName(final RuleSet baseRuleSet, final RuleSet modifications) {
 		if (nonNull(modifications) && nonNull(baseRuleSet)) {
 			final RuleSet baseRules = new RuleSet(baseRuleSet);
-			final List<String> modificationsTypes = new ArrayList<>(modifications.getAgentRules().stream()
-					.map(AgentRule::getRuleType)
-					.toList());
+			final List<AgentRule> modificationRules = new ArrayList<>((modifications.getAgentRules()));
+			final BiPredicate<AgentRule, AgentRule> testIfMatch = (baseRule, modificationRule) ->
+					baseRule.getRuleType().equals(modificationRule.getRuleType()) &&
+							baseRule.getAgentType().equals(modificationRule.getAgentType());
 			baseRules.setName(modifications.getName());
 
-			if (modificationsTypes.isEmpty()) {
+			if (modificationRules.isEmpty()) {
 				return baseRules;
 			}
 
 			final List<AgentRule> modifiableRules = baseRules.getAgentRules().stream()
-					.filter(agentRule -> modificationsTypes.contains(agentRule.getRuleType()))
+					.filter(agentRule -> modificationRules.stream().anyMatch(rule -> testIfMatch.test(agentRule, rule)))
 					.toList();
 
 			final List<AgentRule> usedModificationsCombined =
-					performModificationOfCombinedRules(modifiableRules, modifications, modificationsTypes, baseRules);
+					performModificationOfCombinedRules(modifiableRules, modifications, modificationRules, baseRules);
 			final List<AgentRule> usedModificationsStepBased =
-					performModificationOfStepBasedRules(modifiableRules, modifications, modificationsTypes, baseRules);
+					performModificationOfStepBasedRules(modifiableRules, modifications, modificationRules, baseRules);
 			final List<AgentRule> remainingModifications = modifications.getAgentRules().stream()
-					.filter(modification -> !usedModificationsCombined.contains(modification)
-							&& !usedModificationsStepBased.contains(modification))
+					.filter(modification -> !usedModificationsCombined.contains(modification) &&
+							!usedModificationsStepBased.contains(modification))
 					.toList();
 
-			baseRules.getAgentRules().removeIf(agentRule -> modificationsTypes.contains(agentRule.getRuleType()));
+			baseRules.getAgentRules().removeIf(agentRule -> modificationRules.stream()
+					.anyMatch(rule -> testIfMatch.test(agentRule, rule)));
 			baseRules.getAgentRules().addAll(remainingModifications);
 			return baseRules;
 		}
@@ -124,23 +127,23 @@ public class RuleSetConstructor {
 	}
 
 	private static List<AgentRule> performModificationOfCombinedRules(final List<AgentRule> originalRules,
-			final RuleSet modifications, final List<String> modificationsTypes, final RuleSet baseSet) {
+			final RuleSet modifications, final List<AgentRule> modificationRules, final RuleSet baseSet) {
 		return originalRules.stream()
 				.filter(agentRule -> agentRule.getAgentRuleType().equals(COMBINED.getType()))
 				.map(agentRule -> copyAndRemoveRule(agentRule, baseSet))
 				.map(AgentCombinedRule.class::cast)
-				.map(agentRule -> modifyCombinedRule(agentRule, modifications, modificationsTypes, baseSet))
+				.map(agentRule -> modifyCombinedRule(agentRule, modifications, modificationRules, baseSet))
 				.flatMap(Collection::stream)
 				.toList();
 	}
 
 	private static List<AgentRule> performModificationOfStepBasedRules(final List<AgentRule> originalRules,
-			final RuleSet modifications, final List<String> modificationsTypes, final RuleSet baseSet) {
+			final RuleSet modifications, final List<AgentRule> modificationRules, final RuleSet baseSet) {
 		return originalRules.stream()
 				.filter(agentRule -> stepBasedRules.contains(AgentRuleTypeEnum.valueOf(agentRule.getAgentRuleType())))
 				.map(agentRule -> copyAndRemoveRule(agentRule, baseSet))
 				.map(AgentBasicRule.class::cast)
-				.map(agentRule -> modifyStepBasedRule(agentRule, modifications, modificationsTypes, baseSet))
+				.map(agentRule -> modifyStepBasedRule(agentRule, modifications, modificationRules, baseSet))
 				.flatMap(Collection::stream)
 				.toList();
 	}
@@ -152,7 +155,7 @@ public class RuleSetConstructor {
 
 	private static <E extends AgentProps, T extends AgentNode<E>> List<AgentRule> modifyStepBasedRule(
 			final AgentBasicRule<E, T> stepBasedRule, final RuleSet modifications,
-			final List<String> modificationsTypes, final RuleSet baseSet) {
+			final List<AgentRule> modificationRules, final RuleSet baseSet) {
 
 		final List<String> stepRules = stepBasedRule.getRules().stream().map(AgentRule::getStepType).toList();
 		final List<AgentRule> applicableModifications = modifications.getAgentRules().stream()
@@ -160,7 +163,10 @@ public class RuleSetConstructor {
 				.toList();
 		final List<String> consideredTypes = applicableModifications.stream().map(AgentRule::getStepType)
 				.toList();
-		consideredTypes.forEach(type -> modificationsTypes.remove(stepBasedRule.getRuleType()));
+		modificationRules.removeIf(agentRule -> agentRule.getRuleType().equals(stepBasedRule.getRuleType()) &&
+				agentRule.getAgentType().equals(stepBasedRule.getAgentType()) &&
+				nonNull(agentRule.getStepType()) &&
+				consideredTypes.contains(agentRule.getStepType()));
 
 		if (!applicableModifications.isEmpty()) {
 			stepBasedRule.getRules().removeIf(stepRule -> consideredTypes.contains(stepRule.getStepType()));
@@ -173,15 +179,19 @@ public class RuleSetConstructor {
 
 	private static <E extends AgentProps, T extends AgentNode<E>> List<AgentRule> modifyCombinedRule(
 			final AgentCombinedRule<E, T> combinedRule, final RuleSet modifications,
-			final List<String> modificationsTypes, final RuleSet baseSet) {
+			final List<AgentRule> modificationRules, final RuleSet baseSet) {
 
 		final List<String> subRules = combinedRule.getNestedRules();
 		final List<AgentRule> applicableModifications = modifications.getAgentRules().stream()
 				.filter(rule -> rule.getRuleType().equals(combinedRule.getRuleType()))
+				.filter(rule -> rule.getAgentType().equals(combinedRule.getAgentType()))
 				.filter(rule -> subRules.contains(rule.getSubRuleType()))
 				.toList();
 		final List<String> consideredTypes = applicableModifications.stream().map(AgentRule::getSubRuleType).toList();
-		consideredTypes.forEach(type -> modificationsTypes.remove(combinedRule.getRuleType()));
+		modificationRules.removeIf(agentRule -> agentRule.getRuleType().equals(combinedRule.getRuleType()) &&
+				agentRule.getAgentType().equals(combinedRule.getAgentType()) &&
+				nonNull(agentRule.getSubRuleType()) &&
+				consideredTypes.contains(agentRule.getSubRuleType()));
 
 		if (!applicableModifications.isEmpty()) {
 			combinedRule.getRulesToCombine().removeIf(subRule -> consideredTypes.contains(subRule.getSubRuleType()));
