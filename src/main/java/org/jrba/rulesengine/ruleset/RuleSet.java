@@ -95,6 +95,18 @@ public class RuleSet {
 	}
 
 	/**
+	 * Constructor
+	 *
+	 * @param name name of the rule set
+	 * @param agentRules list of agent rules (initially not connected with the controller)
+	 */
+	protected RuleSet(final String name, final List<AgentRule> agentRules) {
+		this.rulesEngine = new DefaultRulesEngine();
+		this.agentRules = agentRules;
+		this.name = name;
+	}
+
+	/**
 	 * Method fires agent rule set for a set of facts
 	 *
 	 * @param facts set of facts based on which actions are going to be taken
