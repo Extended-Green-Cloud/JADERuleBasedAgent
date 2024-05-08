@@ -25,7 +25,7 @@ import lombok.Setter;
 @Getter
 public class RuleSet {
 
-	private final List<AgentRule> agentRules;
+	protected List<AgentRule> agentRules;
 	protected RulesEngine rulesEngine;
 	protected RulesController<?, ?> rulesController;
 	protected boolean callInitializeRules;
