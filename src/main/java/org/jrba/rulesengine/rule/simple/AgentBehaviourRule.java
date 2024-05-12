@@ -48,7 +48,7 @@ public class AgentBehaviourRule<T extends AgentProps, E extends AgentNode<T>> ex
 		super(rule);
 		this.expressionsBehaviours = ofNullable(rule.getExpressionsBehaviours())
 				.map(ArrayList::new)
-				.orElse(new ArrayList<>());
+				.orElse(null);
 	}
 
 	/**
