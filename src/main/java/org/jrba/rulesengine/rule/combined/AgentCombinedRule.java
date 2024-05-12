@@ -52,7 +52,7 @@ public class AgentCombinedRule<T extends AgentProps, E extends AgentNode<T>> ext
 	 */
 	public AgentCombinedRule(final AgentCombinedRule<T, E> rule) {
 		super(rule);
-		this.ruleSet = new RuleSet(rule.getRuleSet());
+		this.ruleSet = ofNullable(rule.getRuleSet()).map(RuleSet::new).orElse(null);
 		this.combinationType = rule.getCombinationType();
 		this.rulesToCombine = new ArrayList<>(ofNullable(rule.getRulesToCombine())
 				.orElse(emptyList()).stream()

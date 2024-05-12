@@ -1,6 +1,7 @@
 package org.jrba.rulesengine.rule.simple;
 
 import static java.util.Objects.isNull;
+import static java.util.Optional.ofNullable;
 import static org.jrba.rulesengine.constants.MVELParameterConstants.FACTS;
 import static org.jrba.rulesengine.constants.RuleTypeConstants.DEFAULT_CHAIN_RULE;
 import static org.jrba.rulesengine.types.ruletype.AgentRuleTypeEnum.CHAIN;
@@ -40,7 +41,7 @@ public class AgentChainRule<T extends AgentProps, E extends AgentNode<T>> extend
 	 */
 	public AgentChainRule(final AgentChainRule<T, E> rule) {
 		super(rule);
-		this.ruleSet = new RuleSet(rule.getRuleSet());
+		this.ruleSet = ofNullable(rule.getRuleSet()).map(RuleSet::new).orElse(null);
 	}
 
 	/**
