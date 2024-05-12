@@ -72,7 +72,7 @@ public class RuleSetUnitTest {
 	@Test
 	@DisplayName("Test initialize RuleSet from name.")
 	void testInitializeRuleSetFromName() {
-		final RuleSet testRuleSet = new RuleSet("TestSet");
+		final RuleSet testRuleSet = new RuleSet("TestSet", true);
 
 		assertNull(testRuleSet.getRulesController());
 		assertInstanceOf(DefaultRulesEngine.class, testRuleSet.getRulesEngine());
@@ -86,13 +86,17 @@ public class RuleSetUnitTest {
 	void testInitializeRuleSetFromRuleSetAndControllerNoInitialization() {
 		final RuleSet ruleSetRest = prepareRuleSet();
 		final RulesController<?, ?> rulesController = prepareRulesController();
+
+		assertNull(((AgentBasicRule<?, ?>)ruleSetRest.getAgentRules().getFirst()).getController());
+
 		final RuleSet testRuleSet = new RuleSet(ruleSetRest, rulesController);
 
 		assertEquals(rulesController, testRuleSet.getRulesController());
 		assertInstanceOf(DefaultRulesEngine.class, testRuleSet.getRulesEngine());
 		assertEquals("TestRuleSet", testRuleSet.getName());
-		assertThat(testRuleSet.getAgentRules()).containsAll(ruleSetRest.getAgentRules());
+		assertThat(testRuleSet.getAgentRules()).hasSize(2);
 		assertFalse(testRuleSet.isCallInitializeRules());
+		assertNull(((AgentBasicRule<?, ?>)ruleSetRest.getAgentRules().getFirst()).getController());
 		assertThatCollection(testRuleSet.getAgentRules())
 				.allMatch((rule) -> ((AgentBasicRule<?, ?>) rule).getController().equals(rulesController));
 	}
@@ -100,7 +104,7 @@ public class RuleSetUnitTest {
 	@Test
 	@DisplayName("Test initialize RuleSet from rule set and controller with rules initialization.")
 	void testInitializeRuleSetFromRuleSetAndControllerWithInitialization() {
-		final RuleSet ruleSetRest = spy(new RuleSet("TestSet"));
+		final RuleSet ruleSetRest = spy(new RuleSet("TestSet", true));
 		final RulesController<?, ?> rulesController = prepareRulesController();
 		final List<AgentRule> testRules = List.of(getRuleForType(prepareCallForProposalRuleRest(), null));
 		when(ruleSetRest.initializeRules(rulesController)).thenReturn(testRules);

@@ -64,7 +64,14 @@ class RuleSetConstructorUnitTest {
 		assertEquals(rulesController, result.getRulesController());
 		assertInstanceOf(DefaultRulesEngine.class, result.getRulesEngine());
 		assertEquals("TestRuleSet", result.getName());
-		assertThat(result.getAgentRules()).containsAll(testRuleSet.getAgentRules());
+		assertThat(result.getAgentRules())
+				.usingRecursiveFieldByFieldElementComparatorIgnoringFields("rulesController",
+						"initialParameters",
+						"controller",
+						"agentProps",
+						"agentNode",
+						"agent")
+				.containsAll(testRuleSet.getAgentRules());
 		assertFalse(result.isCallInitializeRules());
 		assertThatCollection(result.getAgentRules())
 				.allMatch((rule) -> ((AgentBasicRule<?, ?>) rule).getController().equals(rulesController));
@@ -79,10 +86,20 @@ class RuleSetConstructorUnitTest {
 		final RuleSet testRuleSet = prepareRuleSet();
 		getAvailableRuleSets().put("TestRuleSetName", testRuleSet);
 
-		assertThat(modifyBaseRuleSetWithName("TestRuleSetName", "TestModificationSetName", rulesController))
+		final RuleSet modifiedSet = modifyBaseRuleSetWithName("TestRuleSetName", "TestModificationSetName", rulesController);
+
+		assertThat(modifiedSet)
 				.usingRecursiveComparison()
-				.ignoringFields("rulesController")
+				.ignoringFields("rulesController", "agentRules")
 				.isEqualTo(testRuleSet);
+		assertThat(modifiedSet.getAgentRules())
+				.usingRecursiveFieldByFieldElementComparatorIgnoringFields("rulesController",
+						"initialParameters",
+						"controller",
+						"agentProps",
+						"agentNode",
+						"agent")
+				.isEqualTo(testRuleSet.getAgentRules());
 	}
 
 	@Test
@@ -100,7 +117,15 @@ class RuleSetConstructorUnitTest {
 
 		final RuleSet result = modifyBaseRuleSetWithName("TestRuleSetName", "TestModificationSetName", rulesController);
 
-		assertThatCollection(result.getAgentRules()).containsAll(baseRuleRest.getAgentRules());
+		assertThatCollection(result.getAgentRules())
+				.usingRecursiveFieldByFieldElementComparatorIgnoringFields("rulesToCombine",
+						"stepRules",
+						"initialParameters",
+						"controller",
+						"agentProps",
+						"agentNode",
+						"agent")
+				.containsAll(baseRuleRest.getAgentRules());
 	}
 
 	@Test
@@ -127,11 +152,16 @@ class RuleSetConstructorUnitTest {
 				.toList();
 
 		// Test that rules were not removed from original rule set
-		assertThatCollection(baseRuleRest.getAgentRules())
-				.containsAll(rulesThatShouldBeRemoved);
+		assertThatCollection(baseRuleRest.getAgentRules()).containsAll(rulesThatShouldBeRemoved);
 
 		assertThatCollection(result.getAgentRules())
 				.doesNotContainAnyElementsOf(rulesThatShouldBeRemoved)
+				.usingRecursiveFieldByFieldElementComparatorIgnoringFields("initialParameters",
+						"rulesToCombine",
+						"controller",
+						"agentProps",
+						"agentNode",
+						"agent")
 				.containsAll(rulesThatShouldBeAdded);
 
 		// Check nested changes to combination rule
@@ -158,6 +188,12 @@ class RuleSetConstructorUnitTest {
 
 		assertThatCollection(exchangedCombinationRule.getRulesToCombine())
 				.doesNotContain(removedNestedRule)
+				.usingRecursiveFieldByFieldElementComparatorIgnoringFields("rulesController",
+						"initialParameters",
+						"controller",
+						"agentProps",
+						"agentNode",
+						"agent")
 				.contains(keptNestedRule, addedNestedRule);
 
 		// Check nested changes to step rule
@@ -182,7 +218,14 @@ class RuleSetConstructorUnitTest {
 
 		assertThatCollection(exchangedStepRule.getRules())
 				.doesNotContain(removedCFPSubRule)
-				.anySatisfy((rule) -> assertThat(rule).usingRecursiveComparison().isEqualTo(addedStepRule));
+				.anySatisfy((rule) -> assertThat(rule).usingRecursiveComparison()
+						.ignoringFields("rulesController",
+								"initialParameters",
+								"controller",
+								"agentProps",
+								"agentNode",
+								"agent")
+						.isEqualTo(addedStepRule));
 
 	}
 

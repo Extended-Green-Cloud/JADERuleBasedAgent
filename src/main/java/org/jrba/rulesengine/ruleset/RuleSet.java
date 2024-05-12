@@ -75,6 +75,7 @@ public class RuleSet {
 		if (!ruleSet.callInitializeRules) {
 			this.agentRules = ruleSet.getAgentRules().stream()
 					.filter(rule -> rule.getAgentType().equals(controller.getAgentProps().getAgentType()))
+					.map(AgentRule::copy)
 					.toList();
 			agentRules.forEach(agentRule -> agentRule.connectToController(controller));
 		} else {
@@ -87,11 +88,11 @@ public class RuleSet {
 	 *
 	 * @param name name of the rule set
 	 */
-	protected RuleSet(final String name) {
+	protected RuleSet(final String name, final boolean callInitializeRules) {
 		this.rulesEngine = new DefaultRulesEngine();
 		this.agentRules = new ArrayList<>();
 		this.name = name;
-		this.callInitializeRules = true;
+		this.callInitializeRules = callInitializeRules;
 	}
 
 	/**

@@ -1,11 +1,11 @@
 package org.jrba.rulesengine;
 
-import static java.util.Collections.emptyMap;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.jrba.fixtures.TestRulesFixtures.prepareRuleSet;
 import static org.jrba.fixtures.TestRulesFixtures.prepareRulesController;
 import static org.jrba.rulesengine.constants.RuleSetTypeConstants.DEFAULT_RULE_SET;
 import static org.jrba.rulesengine.rest.RuleSetRestApi.getAvailableRuleSets;
+import static org.jrba.utils.rules.RuleSetConstructor.modifyRuleSetForName;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -64,8 +64,16 @@ class RulesControllerUnitTest {
 		assertThat(testController.getRuleSets()).containsKey(0);
 		assertThat(testController.getRuleSets().get(0))
 				.usingRecursiveComparison()
-				.ignoringFields("rulesController")
+				.ignoringFields("agentRules", "rulesController")
 				.isEqualTo(ruleSet);
+		assertThat(testController.getRuleSets().get(0).getAgentRules())
+				.usingRecursiveFieldByFieldElementComparatorIgnoringFields("rulesController",
+						"initialParameters",
+						"controller",
+						"agentProps",
+						"agentNode",
+						"agent")
+				.isEqualTo(ruleSet.getAgentRules());
 	}
 
 	@Test
@@ -110,7 +118,7 @@ class RulesControllerUnitTest {
 					"MODIFIED_RULE_SET", testController)).thenCallRealMethod();
 			constructorController.when(() -> RuleSetConstructor.getRuleSetTemplate(any(), any()))
 					.thenCallRealMethod();
-			constructorController.when(() -> RuleSetConstructor.modifyRuleSetForName(any(), any()))
+			constructorController.when(() -> modifyRuleSetForName(any(), any()))
 					.thenCallRealMethod();
 
 			assertThat(testController.getRuleSets()).hasSize(1);
@@ -135,18 +143,18 @@ class RulesControllerUnitTest {
 		final RulesController<?, ?> testController = prepareRulesController();
 
 		try (MockedStatic<RuleSetConstructor> constructorController = mockStatic(RuleSetConstructor.class)) {
-			constructorController.when(() -> RuleSetConstructor.modifyRuleSetForName(any(), any()))
+			constructorController.when(() -> modifyRuleSetForName(any(), any()))
 					.thenCallRealMethod();
 
 			assertThat(testController.getRuleSets()).hasSize(1);
 			testController.addModifiedTemporaryRuleSetFromCurrent(modifiedRuleSet, 1);
 
-			constructorController.verify(() -> RuleSetConstructor.modifyRuleSetForName(
+			constructorController.verify(() -> modifyRuleSetForName(
 					assertArg((ruleSet) -> assertThat(ruleSet).usingRecursiveComparison()
-							.ignoringFields("rulesController")
+							.ignoringFields("rulesController", "agentRules")
 							.isEqualTo(baseRuleSet)),
 					assertArg((ruleSet) -> assertThat(ruleSet).usingRecursiveComparison()
-							.ignoringFields("rulesController")
+							.ignoringFields("rulesController", "agentRules")
 							.isEqualTo(modifiedRuleSet))));
 			assertThat(testController.getRuleSets()).hasSize(2).containsKeys(0, 1);
 			assertEquals(0, testController.getLatestLongTermRuleSetIdx().get());

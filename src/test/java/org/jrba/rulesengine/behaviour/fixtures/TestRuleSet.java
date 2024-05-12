@@ -28,47 +28,44 @@ import org.jrba.rulesengine.behaviour.fixtures.singlelistener.TestSingleListener
 import org.jrba.rulesengine.rule.AgentRule;
 import org.jrba.rulesengine.ruleset.RuleSet;
 
+@SuppressWarnings("unchecked")
 public class TestRuleSet extends RuleSet {
 
 	public TestRuleSet() {
-		super("DEFAULT_RULE_SET");
+		super("DEFAULT_RULE_SET", true);
 	}
 
 	@Override
 	protected List<AgentRule> initializeRules(final RulesController<?, ?> controller) {
-		if (controller.getAgentProps().getAgentType().equals("SEARCH_AGENT")) {
-			return new ArrayList<>(List.of(
+		return switch (controller.getAgentProps().getAgentType()) {
+			case "SEARCH_AGENT" -> new ArrayList<>(List.of(
 					new TestSearchAgentInitialRule(
 							(RulesController<TestSearchAgentProps, TestSearchAgentNode>) controller),
 					new TestSearchForAgentRule(
 							(RulesController<TestSearchAgentProps, TestSearchAgentNode>) controller)));
-		} else if (controller.getAgentProps().getAgentType().equals("SCHEDULE_AGENT")) {
-			return new ArrayList<>(List.of(
+			case "SCHEDULE_AGENT" -> new ArrayList<>(List.of(
 					new TestScheduleAgentInitialRule(
 							(RulesController<TestScheduleAgentProps, TestScheduleAgentNode>) controller),
 					new TestScheduleForAgentRule(
 							(RulesController<TestScheduleAgentProps, TestScheduleAgentNode>) controller)));
-		} else if (controller.getAgentProps().getAgentType().equals("PERIODIC_AGENT")) {
-			return new ArrayList<>(List.of(
+			case "PERIODIC_AGENT" -> new ArrayList<>(List.of(
 					new TestPeriodicAgentInitialRule(
 							(RulesController<TestPeriodicAgentProps, TestPeriodicAgentNode>) controller),
 					new TestSchedulePeriodicallyForAgentRule(
 							(RulesController<TestPeriodicAgentProps, TestPeriodicAgentNode>) controller)));
-		} else if (controller.getAgentProps().getAgentType().equals("SINGLE_LISTENER_AGENT")) {
-			return new ArrayList<>(List.of(
+			case "SINGLE_LISTENER_AGENT" -> new ArrayList<>(List.of(
 					new TestSingleListenerAgentInitialRule(
 							(RulesController<TestSingleListenerAgentProps, TestSingleListenerAgentNode>) controller),
 					new TestListenForSingleMessageRule(
 							(RulesController<TestSingleListenerAgentProps, TestSingleListenerAgentNode>) controller)));
-		} else if (controller.getAgentProps().getAgentType().equals("LISTENER_AGENT")) {
-			return new ArrayList<>(List.of(
+			case "LISTENER_AGENT" -> new ArrayList<>(List.of(
 					new TestListenerAgentInitialRule(
 							(RulesController<TestListenerAgentProps, TestListenerAgentNode>) controller),
 					new TestListenForMessagesRule(
 							(RulesController<TestListenerAgentProps, TestListenerAgentNode>) controller, this),
 					new TestListenForMessagesHandlerRule(
 							(RulesController<TestListenerAgentProps, TestListenerAgentNode>) controller)));
-		}
-		return new ArrayList<>();
+			default -> new ArrayList<>();
+		};
 	}
 }
