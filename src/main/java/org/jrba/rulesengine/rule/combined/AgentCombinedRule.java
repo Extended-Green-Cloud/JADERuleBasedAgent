@@ -202,6 +202,7 @@ public class AgentCombinedRule<T extends AgentProps, E extends AgentNode<T>> ext
 	}
 
 	@Setter
+	@Getter
 	class AgentExecuteAllCombinedRule extends UnitRuleGroup implements AgentRule {
 
 		private final Predicate<RuleSetFacts> preEvaluated;
@@ -212,6 +213,13 @@ public class AgentCombinedRule<T extends AgentProps, E extends AgentNode<T>> ext
 			super(name, description);
 			this.preEvaluated = preEvaluated;
 			this.preExecute = preExecute;
+		}
+
+		public AgentExecuteAllCombinedRule(final AgentExecuteAllCombinedRule rule) {
+			super(rule.getName(), rule.getDescription());
+
+			this.preExecute = rule.getPreExecute();
+			this.preEvaluated = rule.getPreEvaluated();
 		}
 
 		@Override
@@ -225,6 +233,11 @@ public class AgentCombinedRule<T extends AgentProps, E extends AgentNode<T>> ext
 				preExecute.accept((RuleSetFacts) facts);
 			}
 			return preEvaluated.test((RuleSetFacts) facts) && super.evaluate(facts);
+		}
+
+		@Override
+		public AgentRule copy() {
+			return new AgentExecuteAllCombinedRule(this);
 		}
 
 		@Override
@@ -264,6 +277,7 @@ public class AgentCombinedRule<T extends AgentProps, E extends AgentNode<T>> ext
 	}
 
 	@Setter
+	@Getter
 	class AgentExecuteFirstCombinedRule extends ActivationRuleGroup implements AgentRule {
 
 		private final Predicate<RuleSetFacts> preEvaluated;
@@ -274,6 +288,13 @@ public class AgentCombinedRule<T extends AgentProps, E extends AgentNode<T>> ext
 			super(name, description);
 			this.preEvaluated = preEvaluated;
 			this.preExecute = preExecute;
+		}
+
+		public AgentExecuteFirstCombinedRule(final AgentExecuteFirstCombinedRule rule) {
+			super(rule.getName(), rule.getDescription());
+
+			this.preExecute = rule.getPreExecute();
+			this.preEvaluated = rule.getPreEvaluated();
 		}
 
 		@Override
@@ -288,6 +309,11 @@ public class AgentCombinedRule<T extends AgentProps, E extends AgentNode<T>> ext
 				return super.evaluate(facts);
 			}
 			return false;
+		}
+
+		@Override
+		public AgentRule copy() {
+			return new AgentExecuteFirstCombinedRule(this);
 		}
 
 		@Override
