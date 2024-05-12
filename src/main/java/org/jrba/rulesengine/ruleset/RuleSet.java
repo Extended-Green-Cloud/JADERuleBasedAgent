@@ -1,6 +1,6 @@
 package org.jrba.rulesengine.ruleset;
 
-import static java.util.Objects.nonNull;
+import static java.util.Optional.ofNullable;
 import static org.jrba.rulesengine.constants.FactTypeConstants.RULE_STEP;
 import static org.jrba.rulesengine.constants.FactTypeConstants.RULE_TYPE;
 import static org.jrba.rulesengine.mvel.MVELRuleMapper.getRuleForType;
@@ -8,6 +8,7 @@ import static org.jrba.rulesengine.mvel.MVELRuleMapper.getRuleForType;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.stream.Stream;
 
 import org.jeasy.rules.api.Rules;
 import org.jeasy.rules.api.RulesEngine;
@@ -41,11 +42,11 @@ public class RuleSet {
 		this.rulesEngine = new DefaultRulesEngine();
 		this.name = ruleSetRest.getName();
 		this.callInitializeRules = false;
-		this.agentRules = nonNull(ruleSetRest.getRules()) ?
-				new ArrayList<>(ruleSetRest.getRules().stream()
-						.map(ruleRest -> getRuleForType(ruleRest, this))
-						.toList()) :
-				new ArrayList<>();
+		this.agentRules = ofNullable(ruleSetRest.getRules())
+				.map(ruleRests -> ruleRests.stream().map(ruleRest -> getRuleForType(ruleRest, this)))
+				.map(Stream::toList)
+				.map(ArrayList::new)
+				.orElse(new ArrayList<>());
 	}
 
 	/**
@@ -98,7 +99,7 @@ public class RuleSet {
 	/**
 	 * Constructor
 	 *
-	 * @param name name of the rule set
+	 * @param name       name of the rule set
 	 * @param agentRules list of agent rules (initially not connected with the controller)
 	 */
 	protected RuleSet(final String name, final List<AgentRule> agentRules) {

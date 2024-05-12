@@ -1,6 +1,8 @@
 package org.jrba.rulesengine.rule.combined;
 
+import static java.util.Collections.emptyList;
 import static java.util.Collections.singletonList;
+import static java.util.Optional.ofNullable;
 import static org.jrba.rulesengine.constants.RuleTypeConstants.DEFAULT_COMBINED_RULE;
 import static org.jrba.rulesengine.mvel.MVELRuleMapper.getRuleForType;
 import static org.jrba.rulesengine.types.ruletype.AgentRuleTypeEnum.BASIC;
@@ -52,7 +54,9 @@ public class AgentCombinedRule<T extends AgentProps, E extends AgentNode<T>> ext
 		super(rule);
 		this.ruleSet = new RuleSet(rule.getRuleSet());
 		this.combinationType = rule.getCombinationType();
-		this.rulesToCombine = new ArrayList<>(rule.getRulesToCombine().stream().map(AgentRule::copy).toList());
+		this.rulesToCombine = new ArrayList<>(ofNullable(rule.getRulesToCombine())
+				.orElse(emptyList()).stream()
+				.map(AgentRule::copy).toList());
 	}
 
 	/**

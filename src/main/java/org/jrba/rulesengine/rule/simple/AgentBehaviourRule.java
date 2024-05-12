@@ -2,6 +2,7 @@ package org.jrba.rulesengine.rule.simple;
 
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
+import static java.util.Optional.ofNullable;
 import static org.jrba.rulesengine.constants.MVELParameterConstants.FACTS;
 import static org.jrba.rulesengine.constants.RuleTypeConstants.INITIALIZE_BEHAVIOURS_RULE;
 import static org.jrba.rulesengine.types.ruletype.AgentRuleTypeEnum.BEHAVIOUR;
@@ -45,7 +46,9 @@ public class AgentBehaviourRule<T extends AgentProps, E extends AgentNode<T>> ex
 	 */
 	public AgentBehaviourRule(final AgentBehaviourRule<T, E> rule) {
 		super(rule);
-		this.expressionsBehaviours = new ArrayList<>(rule.getExpressionsBehaviours());
+		this.expressionsBehaviours = ofNullable(rule.getExpressionsBehaviours())
+				.map(ArrayList::new)
+				.orElse(new ArrayList<>());
 	}
 
 	/**
